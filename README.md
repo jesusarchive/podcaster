@@ -2,7 +2,7 @@
 
 Minimal podcast listening app using React TypeScript and Webpack
 
-## Scripts
+## Available scripts
 
 `npm run build` - Build the app for production
 
