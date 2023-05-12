@@ -1,7 +1,13 @@
-import React from "react";
+import React from 'react';
+
+import Home from './pages/home';
 
 function App() {
-  return <div>App</div>;
+  return (
+    <div>
+      <Home></Home>
+    </div>
+  );
 }
 
 export default App;
