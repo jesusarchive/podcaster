@@ -13,10 +13,10 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "incremental": true,
-    "baseUrl": ".",
+    "baseUrl": "src",
     "paths": {
-      "@/components/*": ["src/components/*"],
-      "@/pages/*": ["src/pages/*"]
+      "@/components/*": ["components/*"],
+      "@/pages/*": ["pages/*"]
     },
     "types": ["node", "jest"]
   },

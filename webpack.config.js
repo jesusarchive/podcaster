@@ -1,8 +1,9 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 module.exports = {
-  entry: './src/index.tsx',
+  entry: './src/main.tsx',
   module: {
     rules: [
       {
@@ -17,7 +18,8 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js']
+    extensions: ['.tsx', '.ts', '.js'],
+    plugins: [new TsconfigPathsPlugin()]
   },
   output: {
     filename: 'bundle.js',
@@ -29,6 +31,7 @@ module.exports = {
     })
   ],
   devServer: {
+    historyApiFallback: true,
     static: {
       directory: path.join(__dirname, 'dist')
     },
