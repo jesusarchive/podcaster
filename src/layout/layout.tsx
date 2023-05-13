@@ -7,7 +7,7 @@ export default function Layout() {
   return (
     <div className="layout">
       <header>
-        <nav className="layout__nav">
+        <nav>
           <Link to="/">Podcaster</Link>
         </nav>
       </header>
