@@ -1,8 +1,8 @@
 import React from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 
-import Home from '@/pages/home/home';
-import NotFound from '@/pages/not-found';
+import NotFoundPage from '@/pages/not-found-page';
+import PodcastList from '@/pages/podcast-list-page';
 
 import Layout from '../layout';
 
@@ -13,11 +13,11 @@ export default createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Home />
+        element: <PodcastList />
       },
       {
         path: '*',
-        element: <NotFound />
+        element: <NotFoundPage />
       }
     ]
   }
