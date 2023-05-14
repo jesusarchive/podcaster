@@ -4,8 +4,8 @@
   min-height: 100vh;
 }
 
-.layout__nav {
-  height: 5vh;
+.layout nav {
+  height: 5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -13,8 +13,9 @@
   box-shadow: 0 0.1rem 0.5rem rgba(0, 0, 0, 0.1);
 }
 
-.layout__nav a {
+.layout nav a {
   color: rgb(0, 110, 255);
   padding: 2rem;
   font-size: 2rem;
+  text-decoration: none;
 }

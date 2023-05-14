@@ -1,0 +1,26 @@
+.card {
+  background-color: #fff;
+  box-shadow: 0 2px 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.card-title {
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.card-title {
+  color: #444;
+  font-size: 24px;
+  font-weight: 300;
+  margin: 0;
+}
+
+.card-actions {
+  padding: 20px;
+}
