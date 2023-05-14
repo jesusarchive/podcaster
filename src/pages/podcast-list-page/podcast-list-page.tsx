@@ -1,6 +1,7 @@
 import './podcast-list-page.css';
 
 import React, { useMemo } from 'react';
+import { Link } from 'react-router-dom';
 
 import Badge from '@/components/badge';
 import Card from '@/components/card';
@@ -31,13 +32,15 @@ export default function PodcastListPage() {
           <ul>
             {visiblePodcasts.map((podcast) => (
               <li key={podcast.id}>
-                <Card>
-                  <Card.Image src={podcast.logo}></Card.Image>
-                  <Card.Body>
-                    <Card.Title tag="h2">{podcast.title}</Card.Title>
-                    <span>{`Author: ${podcast.author}`}</span>
-                  </Card.Body>
-                </Card>
+                <Link to={`/podcast/${podcast.id}`}>
+                  <Card>
+                    <Card.Image src={podcast.logo}></Card.Image>
+                    <Card.Body>
+                      <Card.Title tag="h2">{podcast.title}</Card.Title>
+                      <span>{`Author: ${podcast.author}`}</span>
+                    </Card.Body>
+                  </Card>
+                </Link>
               </li>
             ))}
           </ul>
