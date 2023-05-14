@@ -7,8 +7,7 @@ import React from 'react';
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   bordered?: boolean;
 }
-const Input: React.FC<InputProps> = ({ bordered = true, className, ...props }) => {
-  return <input {...props} className={clsx('input', className, { 'input-bordered': bordered })} />;
-};
 
-export default Input;
+export default function Input({ bordered = true, className, ...props }: InputProps) {
+  return <input {...props} className={clsx('input', className, { 'input-bordered': bordered })} />;
+}

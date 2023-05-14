@@ -43,13 +43,16 @@ export default function EpisodeDetailPage() {
       </article>
       <article>
         <Card>
-          <h2>{episode.title}</h2>
-          <p>{episode.description}</p>
-          <hr />
-          <audio controls>
-            <source src={episode.src} type="audio/mpeg" />
-            Your browser does not support the audio element.
-          </audio>
+          <div>
+            <h2>{episode.title}</h2>
+            <p>{episode.description}</p>
+          </div>
+          <div>
+            <audio controls>
+              <source src={episode.src} type="audio/mpeg" />
+              Your browser does not support the audio element.
+            </audio>
+          </div>
         </Card>
       </article>
     </main>

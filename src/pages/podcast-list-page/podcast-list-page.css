@@ -57,5 +57,5 @@
 }
 
 .podcast-list-page div span {
-  color: gray;
+  color: var(--neutral-500);
 }

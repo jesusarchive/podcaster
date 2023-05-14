@@ -11,8 +11,15 @@
   padding-left: 6rem;
 }
 
-.episode-detail-page article:nth-child(2) *:not(hr) {
-  padding: 1rem;
+.episode-detail-page .card div:first-child {
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.episode-detail-page .card h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding-bottom: 0.5rem;
 }
 
 .episode-detail-page audio {

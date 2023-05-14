@@ -12,7 +12,7 @@
   padding-left: 6rem;
 }
 
-.podcast-detail-page article:nth-child(2) * {
+.podcast-detail-page article:nth-child(2) > * {
   margin-bottom: 1.5rem;
 }
 
@@ -22,22 +22,22 @@
 
 .podcast-detail-page table td,
 .podcast-detail-page table th {
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid var(--gray-200);
   padding: 0.6rem;
 }
 
 .podcast-detail-page table tr:nth-child(odd) {
-  background-color: #f2f2f2;
-}
-
-.podcast-detail-page table tr:hover {
-  background-color: #ddd;
+  background-color: var(--gray-100);
 }
 
 .podcast-detail-page table th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
-  background-color: white;
-  color: black;
+  background-color: var(--white);
+  color: var(--black);
+}
+
+.podcast-detail-page table a {
+  color: var(--blue-500);
 }

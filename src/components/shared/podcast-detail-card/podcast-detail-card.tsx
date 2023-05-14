@@ -4,7 +4,7 @@ import React from 'react';
 
 import Card from '@/components/ui/card';
 
-interface PodcastDetailCardProps {
+type PodcastDetailCardProps = {
   podcast: {
     id: string;
     logo: string;
@@ -12,20 +12,20 @@ interface PodcastDetailCardProps {
     author: string;
     description: string;
   };
-}
+};
 
 export default function PodcastDetailCard({ podcast }: PodcastDetailCardProps) {
   return (
     <Card className="podcast-detail-card">
-      <img src={podcast.logo} alt="logo"></img>
-      <hr />
+      <div>
+        <img src={podcast.logo} alt="logo"></img>
+      </div>
       <div>
         <h2>{podcast.title}</h2>
-        <span>{`Author: ${podcast.author}`}</span>
+        <span>{`by ${podcast.author}`}</span>
       </div>
-      <hr />
       <div>
-        <h3>Description</h3>
+        <h3>Description:</h3>
         <p>{podcast.description}</p>
       </div>
     </Card>
