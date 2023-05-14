@@ -1,0 +1,34 @@
+.episode-detail-page {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 2rem;
+}
+
+.podcast-detail-card {
+  max-width: 20rem;
+}
+
+.podcast-detail-card img {
+  align-self: center;
+  padding-bottom: 1rem;
+}
+
+.podcast-detail-card div {
+  padding: 1rem;
+}
+
+.episode-detail {
+  flex-grow: 1;
+  padding-left: 6rem;
+}
+
+.episode-detail *:not(hr) {
+  padding: 1rem;
+}
+
+.episode-detail audio {
+  width: 100%;
+  height: 80px;
+}
