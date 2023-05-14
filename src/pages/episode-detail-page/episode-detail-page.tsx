@@ -4,9 +4,8 @@ import './episode-detail-page.css';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-import Card from '@/components/card';
-
-import PodcastDetailCard from './podcast-detail-card';
+import PodcastDetailCard from '@/components/shared/podcast-detail-card';
+import Card from '@/components/ui/card';
 
 export default function EpisodeDetailPage() {
   const { episodeId } = useParams();
@@ -38,13 +37,13 @@ export default function EpisodeDetailPage() {
   const episode = episodeMock;
 
   return (
-    <div className="episode-detail-page">
-      <div>
+    <main className="episode-detail-page">
+      <article>
         <PodcastDetailCard podcast={podcast} />
-      </div>
-      <div className="episode-detail">
+      </article>
+      <article>
         <Card>
-          <Card.Title tag="h2">{episode.title}</Card.Title>
+          <h2>{episode.title}</h2>
           <p>{episode.description}</p>
           <hr />
           <audio controls>
@@ -52,7 +51,7 @@ export default function EpisodeDetailPage() {
             Your browser does not support the audio element.
           </audio>
         </Card>
-      </div>
-    </div>
+      </article>
+    </main>
   );
 }

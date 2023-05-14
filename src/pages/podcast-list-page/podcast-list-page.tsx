@@ -3,9 +3,9 @@ import './podcast-list-page.css';
 import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
-import Badge from '@/components/badge';
-import Card from '@/components/card';
-import Input from '@/components/input';
+import Badge from '@/components/ui/badge';
+import Card from '@/components/ui/card';
+import Input from '@/components/ui/input';
 
 import { filterPodcasts, podcastsMock } from './helpers';
 
@@ -20,12 +20,12 @@ export default function PodcastListPage() {
   const visiblePodcasts = useMemo(() => filterPodcasts(podcasts, search), [podcasts, search]);
 
   return (
-    <div className="podcast-list-page">
-      <header>
+    <main className="podcast-list-page">
+      <article className="search-bar">
         <Badge>{visiblePodcasts.length}</Badge>
         <Input placeholder="Filter podcasts..." type="search" value={search} onChange={handleSearchChange} />
-      </header>
-      <main>
+      </article>
+      <article>
         {visiblePodcasts.length === 0 ? (
           <p>No podcasts found</p>
         ) : (
@@ -34,18 +34,18 @@ export default function PodcastListPage() {
               <li key={podcast.id}>
                 <Link to={`/podcast/${podcast.id}`}>
                   <Card>
-                    <Card.Image src={podcast.logo}></Card.Image>
-                    <Card.Body>
-                      <Card.Title tag="h2">{podcast.title}</Card.Title>
+                    <img src={podcast.logo} alt="logo"></img>
+                    <div>
+                      <h2>{podcast.title}</h2>
                       <span>{`Author: ${podcast.author}`}</span>
-                    </Card.Body>
+                    </div>
                   </Card>
                 </Link>
               </li>
             ))}
           </ul>
         )}
-      </main>
-    </div>
+      </article>
+    </main>
   );
 }

@@ -1,17 +1,21 @@
 import React from 'react';
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, Outlet } from 'react-router-dom';
 
+import Header from '@/layouts/header';
 import EpisodeDetailPage from '@/pages/episode-detail-page';
 import NotFoundPage from '@/pages/not-found-page';
-import PodcastDetailPage from '@/pages/podcast-detail-page/podcast-detail-page';
+import PodcastDetailPage from '@/pages/podcast-detail-page';
 import PodcastList from '@/pages/podcast-list-page';
-
-import Layout from '../layout';
 
 export default createBrowserRouter([
   {
     path: '/',
-    element: <Layout />,
+    element: (
+      <>
+        <Header />
+        <Outlet />
+      </>
+    ),
     children: [
       {
         index: true,
@@ -22,7 +26,7 @@ export default createBrowserRouter([
         element: <PodcastDetailPage />
       },
       {
-        path: 'episode/:episodeId',
+        path: 'podcast/:podcastId/episode/:episodeId',
         element: <EpisodeDetailPage />
       },
       {

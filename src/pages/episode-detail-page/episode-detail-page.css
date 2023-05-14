@@ -6,29 +6,16 @@
   padding: 2rem;
 }
 
-.podcast-detail-card {
-  max-width: 20rem;
-}
-
-.podcast-detail-card img {
-  align-self: center;
-  padding-bottom: 1rem;
-}
-
-.podcast-detail-card div {
-  padding: 1rem;
-}
-
-.episode-detail {
+.episode-detail-page article:nth-child(2) {
   flex-grow: 1;
   padding-left: 6rem;
 }
 
-.episode-detail *:not(hr) {
+.episode-detail-page article:nth-child(2) *:not(hr) {
   padding: 1rem;
 }
 
-.episode-detail audio {
+.episode-detail-page audio {
   width: 100%;
   height: 80px;
 }

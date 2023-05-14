@@ -6,47 +6,35 @@
   padding: 2rem;
 }
 
-.podcast-detail-card {
-  max-width: 20rem;
-}
-
-.podcast-detail-card img {
-  align-self: center;
-  padding-bottom: 1rem;
-}
-
-.podcast-detail-card div {
-  padding: 1rem;
-}
-
-.episode-list {
+/* Podcast episode list container */
+.podcast-detail-page article:nth-child(2) {
   flex-grow: 1;
   padding-left: 6rem;
 }
 
-.episode-list * {
+.podcast-detail-page article:nth-child(2) * {
   margin-bottom: 1.5rem;
 }
 
-#episodes {
+.podcast-detail-page table {
   width: 100%;
 }
 
-#episodes td,
-#episodes th {
+.podcast-detail-page table td,
+.podcast-detail-page table th {
   border-bottom: 1px solid #ddd;
   padding: 0.6rem;
 }
 
-#episodes tr:nth-child(odd) {
+.podcast-detail-page table tr:nth-child(odd) {
   background-color: #f2f2f2;
 }
 
-#episodes tr:hover {
+.podcast-detail-page table tr:hover {
   background-color: #ddd;
 }
 
-#episodes th {
+.podcast-detail-page table th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;

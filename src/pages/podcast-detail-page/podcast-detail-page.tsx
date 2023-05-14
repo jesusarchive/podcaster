@@ -1,10 +1,10 @@
 import './podcast-detail-page.css';
 
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
-import EpisodeList from './episode-list';
-import PodcastDetailCard from './podcast-detail-card';
+import PodcastDetailCard from '@/components/shared/podcast-detail-card';
+import Card from '@/components/ui/card';
 
 export default function PodcastDetailPage() {
   const { podcastId } = useParams();
@@ -28,12 +28,40 @@ export default function PodcastDetailPage() {
 
   const podcast = podcastMock;
 
+  const episodes = episodesMock;
+
   return (
-    <div className="podcast-detail-page">
-      <div>
+    <main className="podcast-detail-page">
+      <article>
         <PodcastDetailCard podcast={podcast} />
-      </div>
-      <EpisodeList episodes={episodesMock} />
-    </div>
+      </article>
+      <article>
+        <Card>
+          <h2>Episodes: {episodes.length}</h2>
+        </Card>
+        <Card>
+          <table>
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Date</th>
+                <th>Duration</th>
+              </tr>
+            </thead>
+            <tbody>
+              {episodes.map((episode) => (
+                <tr key={episode.id}>
+                  <td>
+                    <Link to={`episode/${episode.id}`}>{episode.title}</Link>
+                  </td>
+                  <td>{episode.date.toLocaleDateString()}</td>
+                  <td>{episode.duration}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </Card>
+      </article>
+    </main>
   );
 }

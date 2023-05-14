@@ -1,0 +1,12 @@
+.podcast-detail-card {
+  max-width: 20rem;
+}
+
+.podcast-detail-card img {
+  align-self: center;
+  padding-bottom: 1rem;
+}
+
+.podcast-detail-card div {
+  padding: 1rem;
+}

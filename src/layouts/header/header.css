@@ -1,10 +1,4 @@
-.layout {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-.layout nav {
+.header nav {
   height: 5rem;
   display: flex;
   justify-content: space-between;
@@ -13,7 +7,7 @@
   box-shadow: 0 0.1rem 0.5rem rgba(0, 0, 0, 0.1);
 }
 
-.layout nav a {
+.header nav a {
   color: rgb(0, 110, 255);
   padding: 2rem;
   font-size: 2rem;
