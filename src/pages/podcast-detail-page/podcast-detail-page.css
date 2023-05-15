@@ -12,6 +12,11 @@
   padding-left: 6rem;
 }
 
+.podcast-detail-page article:nth-child(2) h2 {
+  font-size: 1.75rem;
+  font-weight: bold;
+}
+
 .podcast-detail-page article:nth-child(2) > * {
   margin-bottom: 1.5rem;
 }

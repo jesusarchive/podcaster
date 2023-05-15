@@ -4,7 +4,6 @@ import './episode-detail-page.css';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-import PodcastDetailCard from '@/components/shared/podcast-detail-card';
 import Card from '@/components/ui/card';
 
 export default function EpisodeDetailPage() {
@@ -38,9 +37,7 @@ export default function EpisodeDetailPage() {
 
   return (
     <main className="episode-detail-page">
-      <article>
-        <PodcastDetailCard podcast={podcast} />
-      </article>
+      <article>{/* <PodcastDetailCard podcast={podcast} /> */}</article>
       <article>
         <Card>
           <div>

@@ -23,6 +23,7 @@ export default function PodcastListPage() {
   useEffect(() => {
     (async () => {
       const response = await getPodcasts();
+      console.log(response);
       setPodcasts(response.feed.entry);
     })();
   }, []);

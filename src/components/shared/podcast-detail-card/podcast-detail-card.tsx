@@ -3,31 +3,22 @@ import './podcast-detail-card.css';
 import React from 'react';
 
 import Card from '@/components/ui/card';
+import { PodcastDetail } from '@/services/podcasts/podcasts';
 
-type PodcastDetailCardProps = {
-  podcast: {
-    id: string;
-    logo: string;
-    title: string;
-    author: string;
-    description: string;
-  };
-};
-
-export default function PodcastDetailCard({ podcast }: PodcastDetailCardProps) {
-  return (
+export default function PodcastDetailCard({ podcast }: { podcast: PodcastDetail }) {
+  return Object.values(podcast).length > 0 ? (
     <Card className="podcast-detail-card">
       <div>
-        <img src={podcast.logo} alt="logo"></img>
+        <img src={podcast.artworkUrl600} alt="logo"></img>
       </div>
       <div>
-        <h2>{podcast.title}</h2>
-        <span>{`by ${podcast.author}`}</span>
+        <h2>{podcast.trackName}</h2>
+        <span>{`by ${podcast.artistName}`}</span>
       </div>
       <div>
         <h3>Description:</h3>
-        <p>{podcast.description}</p>
+        <p>{''}</p>
       </div>
     </Card>
-  );
+  ) : null;
 }

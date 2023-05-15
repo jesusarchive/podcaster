@@ -1,34 +1,29 @@
 import './podcast-detail-page.css';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 import PodcastDetailCard from '@/components/shared/podcast-detail-card';
 import Card from '@/components/ui/card';
+import { Episode, getPodcast, PodcastDetail } from '@/services/podcasts/podcasts';
+
+import { formatDate } from './format-date';
+import { msToMin } from './ms-to-min';
 
 export default function PodcastDetailPage() {
   const { podcastId } = useParams();
+  const [podcast, setPodcast] = useState({} as PodcastDetail);
+  const [episodes, setEpisodes] = useState([] as Array<Episode>);
 
-  const podcastMock = {
-    id: podcastId || '1',
-    logo: `https://picsum.photos/seed/${podcastId}/200/200`,
-    title: `Podcast ${podcastId}`,
-    author: `Author ${podcastId}`,
-    description: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ex blanditiis vero voluptatem voluptatum,
-                porro et excepturi provident unde quae earum error, ipsam expedita. Vero perspiciatis eius ad rem esse
-                dolore.`
-  };
-
-  const episodesMock = Array.from({ length: 66 }, (_, index) => ({
-    id: index,
-    title: `Episode ${index} - Lorem ipsum dolor sit amet consectetur`,
-    date: new Date(),
-    duration: 3600
-  }));
-
-  const podcast = podcastMock;
-
-  const episodes = episodesMock;
+  useEffect(() => {
+    (async () => {
+      const response = await getPodcast(Number(podcastId));
+      console.log(response);
+      const [podcast, ...episodes] = response.results;
+      setPodcast(podcast as PodcastDetail);
+      setEpisodes(episodes as Array<Episode>);
+    })();
+  }, []);
 
   return (
     <main className="podcast-detail-page">
@@ -50,12 +45,12 @@ export default function PodcastDetailPage() {
             </thead>
             <tbody>
               {episodes.map((episode) => (
-                <tr key={episode.id}>
+                <tr key={episode.trackId}>
                   <td>
-                    <Link to={`episode/${episode.id}`}>{episode.title}</Link>
+                    <Link to={`episode/${episode.trackId}`}>{episode.trackName}</Link>
                   </td>
-                  <td>{episode.date.toLocaleDateString()}</td>
-                  <td>{episode.duration}</td>
+                  <td>{formatDate(episode.releaseDate)}</td>
+                  <td>{msToMin(episode.trackTimeMillis)}</td>
                 </tr>
               ))}
             </tbody>
