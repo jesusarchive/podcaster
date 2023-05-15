@@ -89,8 +89,85 @@ export interface Podcast {
   'im:releaseDate': ImreleaseDate;
 }
 
+export interface PodcastDetail {
+  wrapperType: string;
+  kind: string;
+  artistId: number;
+  collectionId: number;
+  trackId: number;
+  artistName: string;
+  collectionName: string;
+  trackName: string;
+  collectionCensoredName: string;
+  trackCensoredName: string;
+  artistViewUrl: string;
+  collectionViewUrl: string;
+  trackViewUrl: string;
+  artworkUrl30: string;
+  artworkUrl60: string;
+  artworkUrl100: string;
+  collectionPrice: number;
+  trackPrice: number;
+  collectionHdPrice: number;
+  releaseDate: string;
+  collectionExplicitness: string;
+  trackExplicitness: string;
+  trackCount: number;
+  trackTimeMillis: number;
+  country: string;
+  currency: string;
+  primaryGenreName: string;
+  contentAdvisoryRating: string;
+  artworkUrl600: string;
+  genreIds: string[];
+  genres: string[];
+}
+
+export interface Episode {
+  country: string;
+  artworkUrl600: string;
+  feedUrl: string;
+  closedCaptioning: string;
+  collectionId: number;
+  collectionName: string;
+  collectionViewUrl: string;
+  trackViewUrl: string;
+  trackTimeMillis: number;
+  contentAdvisoryRating: string;
+  artworkUrl60: string;
+  genres: Genre[];
+  episodeGuid: string;
+  description: string;
+  trackId: number;
+  trackName: string;
+  releaseDate: string;
+  shortDescription: string;
+  artworkUrl160: string;
+  episodeFileExtension: string;
+  episodeContentType: string;
+  previewUrl: string;
+  episodeUrl: string;
+  kind: string;
+  wrapperType: string;
+  artistIds: any[];
+}
+
+interface Genre {
+  name: string;
+  id: string;
+}
+
 export async function getPodcasts(): Promise<{ feed: { entry: Array<Podcast> } }> {
-  const response = await fetch(`https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json`);
+  const response = await fetch(`https://itunes.apple.com/us/rss/toppodcasts/limit=100/json`);
+  const data = await response.json();
+
+  return data;
+}
+
+export async function getPodcast(id: number): Promise<{ results: Array<PodcastDetail | Episode> }> {
+  const response = await fetch(
+    `https://itunes.apple.com/lookup?id=${id}&media=podcast&entity=podcastEpisode&limit=20/json`
+  );
   const data = await response.json();
 
   return data;
