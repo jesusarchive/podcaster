@@ -1,19 +1,14 @@
-export const podcastsMock = Array.from({ length: 100 }, (_, index) => ({
-  id: index,
-  logo: `https://picsum.photos/seed/${index}/200/200`,
-  title: `Podcast ${index}`,
-  author: `Author ${index}`
-}));
+import { Podcast } from '@/services/podcasts/podcasts';
 
-export function filterPodcasts(podcasts: typeof podcastsMock, search: string) {
-  return podcasts.filter((podcast: (typeof podcasts)[0]) => {
+export function filterPodcasts(podcasts: Array<Podcast>, search: string) {
+  return podcasts.filter((podcast) => {
     if (!search) {
       return true;
     }
 
     return (
-      podcast.title.toLowerCase().includes(search.toLowerCase()) ||
-      podcast.author.toLowerCase().includes(search.toLowerCase())
+      podcast['im:name'].label.toLowerCase().includes(search.toLowerCase()) ||
+      podcast['im:artist'].label.toLowerCase().includes(search.toLowerCase())
     );
   });
 }

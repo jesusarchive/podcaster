@@ -1,23 +1,31 @@
 import './podcast-list-page.css';
 
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import Badge from '@/components/ui/badge';
 import Card from '@/components/ui/card';
 import Input from '@/components/ui/input';
+import { getPodcasts, Podcast } from '@/services/podcasts/podcasts';
 
-import { filterPodcasts, podcastsMock } from './helpers';
+import { filterPodcasts } from './helpers';
 
 export default function PodcastListPage() {
-  const podcasts = podcastsMock;
-  const [search, setSearch] = React.useState('');
+  const [podcasts, setPodcasts] = useState([] as Array<Podcast>);
+  const [search, setSearch] = useState('');
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
   };
 
   const visiblePodcasts = useMemo(() => filterPodcasts(podcasts, search), [podcasts, search]);
+
+  useEffect(() => {
+    (async () => {
+      const response = await getPodcasts();
+      setPodcasts(response.feed.entry);
+    })();
+  }, []);
 
   return (
     <main className="podcast-list-page">
@@ -31,13 +39,13 @@ export default function PodcastListPage() {
         ) : (
           <ul>
             {visiblePodcasts.map((podcast) => (
-              <li key={podcast.id}>
-                <Link to={`/podcast/${podcast.id}`}>
+              <li key={podcast.id.attributes['im:id']}>
+                <Link to={`/podcast/${podcast.id.attributes['im:id']}`}>
                   <Card>
-                    <img src={podcast.logo} alt="logo"></img>
+                    <img src={podcast['im:image'][2].label} alt="logo"></img>
                     <div>
-                      <h2>{podcast.title}</h2>
-                      <span>{`Author: ${podcast.author}`}</span>
+                      <h2 title={podcast['im:name'].label.toUpperCase()}>{podcast['im:name'].label}</h2>
+                      <span title={podcast['im:artist'].label}>{`by ${podcast['im:artist'].label}`}</span>
                     </div>
                   </Card>
                 </Link>
