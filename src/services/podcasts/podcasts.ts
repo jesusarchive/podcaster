@@ -1,16 +1,17 @@
-import { EpisodeType, PodcastDetailType, PodcastType } from './types';
+import { PodcastLookupResponse, TopPodcastsResponse } from './types';
 
 const API_URL = 'https://itunes.apple.com';
 
-export async function getPodcasts(): Promise<{ feed: { entry: Array<PodcastType> } }> {
-  const response = await fetch(`${API_URL}/us/rss/toppodcasts/limit=100/genre=1310/json`);
+export async function getTopPodcasts(limit = 100): Promise<TopPodcastsResponse> {
+  const response = await fetch(`${API_URL}/us/rss/toppodcasts/limit=${limit}/json`);
   const data = await response.json();
 
   return data;
 }
 
-export async function getPodcast(id: number): Promise<{ results: Array<PodcastDetailType | EpisodeType> }> {
-  const response = await fetch(`${API_URL}/lookup?id=${id}&media=podcast&entity=podcastEpisode&limit=20/json`);
+export async function getPodcastLookup(id: number, limit = 200): Promise<PodcastLookupResponse> {
+  const response = await fetch(`${API_URL}/lookup?id=${id}&media=podcast&entity=podcastEpisode&limit=${limit}`);
+
   const data = await response.json();
 
   return data;
