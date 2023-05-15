@@ -53,17 +53,18 @@
 
 .podcast-list-page div h2 {
   max-width: 270px;
+  padding: 0.5rem 0;
   overflow: hidden;
   white-space: nowrap;
   text-transform: uppercase;
   text-overflow: ellipsis;
-  padding: 0.5rem 0;
+  font-weight: bold;
 }
 
-.podcast-list-page div span {
+.podcast-list-page div h3 {
+  max-width: 270px;
   display: block;
   color: var(--neutral-500);
-  max-width: 270px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;

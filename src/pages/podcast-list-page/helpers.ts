@@ -1,6 +1,6 @@
-import { Podcast } from '@/services/podcasts/podcasts';
+import { PodcastType } from '@/services/podcasts';
 
-export function filterPodcasts(podcasts: Array<Podcast>, search: string) {
+export function filterPodcasts(podcasts: Array<PodcastType>, search: string) {
   return podcasts.filter((podcast) => {
     if (!search) {
       return true;

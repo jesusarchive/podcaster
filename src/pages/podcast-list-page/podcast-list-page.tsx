@@ -6,12 +6,12 @@ import { Link } from 'react-router-dom';
 import Badge from '@/components/ui/badge';
 import Card from '@/components/ui/card';
 import Input from '@/components/ui/input';
-import { getPodcasts, Podcast } from '@/services/podcasts/podcasts';
+import { getPodcasts, PodcastType } from '@/services/podcasts';
 
 import { filterPodcasts } from './helpers';
 
 export default function PodcastListPage() {
-  const [podcasts, setPodcasts] = useState([] as Array<Podcast>);
+  const [podcasts, setPodcasts] = useState([] as Array<PodcastType>);
   const [search, setSearch] = useState('');
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,7 +46,7 @@ export default function PodcastListPage() {
                     <img src={podcast['im:image'][2].label} alt="logo"></img>
                     <div>
                       <h2 title={podcast['im:name'].label.toUpperCase()}>{podcast['im:name'].label}</h2>
-                      <span title={podcast['im:artist'].label}>{`by ${podcast['im:artist'].label}`}</span>
+                      <h3 title={podcast['im:artist'].label}>{`by ${podcast['im:artist'].label}`}</h3>
                     </div>
                   </Card>
                 </Link>

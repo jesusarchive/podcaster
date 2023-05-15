@@ -3,9 +3,9 @@ import './podcast-detail-card.css';
 import React from 'react';
 
 import Card from '@/components/ui/card';
-import { PodcastDetail } from '@/services/podcasts/podcasts';
+import { PodcastDetailType } from '@/services/podcasts';
 
-export default function PodcastDetailCard({ podcast }: { podcast: PodcastDetail }) {
+export default function PodcastDetailCard({ podcast }: { podcast: PodcastDetailType }) {
   return Object.values(podcast).length > 0 ? (
     <Card className="podcast-detail-card">
       <div>

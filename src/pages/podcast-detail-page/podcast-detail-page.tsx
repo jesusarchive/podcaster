@@ -5,23 +5,24 @@ import { Link, useParams } from 'react-router-dom';
 
 import PodcastDetailCard from '@/components/shared/podcast-detail-card';
 import Card from '@/components/ui/card';
-import { Episode, getPodcast, PodcastDetail } from '@/services/podcasts/podcasts';
+import { EpisodeType, PodcastDetailType } from '@/services/podcasts';
+import { getPodcast } from '@/services/podcasts/podcasts';
 
 import { formatDate } from './format-date';
 import { msToMin } from './ms-to-min';
 
 export default function PodcastDetailPage() {
   const { podcastId } = useParams();
-  const [podcast, setPodcast] = useState({} as PodcastDetail);
-  const [episodes, setEpisodes] = useState([] as Array<Episode>);
+  const [podcast, setPodcast] = useState({} as PodcastDetailType);
+  const [episodes, setEpisodes] = useState([] as Array<EpisodeType>);
 
   useEffect(() => {
     (async () => {
       const response = await getPodcast(Number(podcastId));
       console.log(response);
       const [podcast, ...episodes] = response.results;
-      setPodcast(podcast as PodcastDetail);
-      setEpisodes(episodes as Array<Episode>);
+      setPodcast(podcast as PodcastDetailType);
+      setEpisodes(episodes as Array<EpisodeType>);
     })();
   }, []);
 

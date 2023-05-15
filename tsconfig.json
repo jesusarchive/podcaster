@@ -19,6 +19,6 @@
     },
     "types": ["node", "jest"]
   },
-  "include": ["**/*.ts", "**/*.tsx", "types.d.ts", "src/services/.keep"],
+  "include": ["**/*.ts", "**/*.tsx", "types.d.ts"],
   "exclude": ["node_modules"]
 }
