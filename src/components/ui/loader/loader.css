@@ -1,0 +1,32 @@
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.loader span {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  position: absolute;
+  background-color: var(--blue-500);
+  border: 2px solid var(--blue-500);
+  animation: loading 1s infinite ease-in-out;
+}
+
+.loader span:nth-child(2) {
+  animation: loading 1s infinite ease-in-out 0.5s;
+}
+
+@keyframes loading {
+  0% {
+    transform: scale(0);
+  }
+
+  100% {
+    background-color: transparent;
+    transform: scale(2);
+    opacity: 0;
+  }
+}
