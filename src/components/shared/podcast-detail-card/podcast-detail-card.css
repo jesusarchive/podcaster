@@ -32,3 +32,7 @@
 .podcast-detail-card p {
   font-style: italic;
 }
+
+.podcast-detail-card p {
+  overflow-wrap: break-word;
+}

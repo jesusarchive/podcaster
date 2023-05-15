@@ -1,11 +1,12 @@
 import React from 'react';
 import { createBrowserRouter, Outlet } from 'react-router-dom';
 
+import ErrorBoundary from '@/components/error-boundary';
 import Header from '@/layouts/header';
-import EpisodeDetailPage from '@/pages/episode-detail-page';
+import EpisodeDetailPage, { episodeDetailPageLoader } from '@/pages/episode-detail-page';
 import NotFoundPage from '@/pages/not-found-page';
-import PodcastDetailPage from '@/pages/podcast-detail-page';
-import PodcastList from '@/pages/podcast-list-page';
+import PodcastDetailPage, { podcastDetailPageLoader } from '@/pages/podcast-detail-page';
+import PodcastList, { podcastListPageLoader } from '@/pages/podcast-list-page';
 
 export default createBrowserRouter([
   {
@@ -19,15 +20,21 @@ export default createBrowserRouter([
     children: [
       {
         index: true,
-        element: <PodcastList />
+        element: <PodcastList />,
+        loader: podcastListPageLoader,
+        errorElement: <ErrorBoundary />
       },
       {
         path: 'podcast/:podcastId',
-        element: <PodcastDetailPage />
+        element: <PodcastDetailPage />,
+        loader: podcastDetailPageLoader,
+        errorElement: <ErrorBoundary />
       },
       {
         path: 'podcast/:podcastId/episode/:episodeId',
-        element: <EpisodeDetailPage />
+        element: <EpisodeDetailPage />,
+        loader: episodeDetailPageLoader,
+        errorElement: <ErrorBoundary />
       },
       {
         path: '*',

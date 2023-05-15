@@ -1,17 +1,25 @@
 import './podcast-list-page.css';
 
-import React, { useEffect, useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useMemo, useState } from 'react';
+import { defer, Link, useLoaderData } from 'react-router-dom';
 
 import Badge from '@/components/ui/badge';
 import Card from '@/components/ui/card';
 import Input from '@/components/ui/input';
-import { getPodcasts, PodcastType } from '@/services/podcasts';
+import { getTopPodcasts } from '@/services/podcasts';
+import { TopPodcastsFeedEntry } from '@/services/podcasts/types';
 
 import { filterPodcasts } from './helpers';
 
+export async function podcastListPageLoader() {
+  const response = await getTopPodcasts();
+  console.log(response);
+
+  return defer({ podcasts: response.feed.entry });
+}
+
 export default function PodcastListPage() {
-  const [podcasts, setPodcasts] = useState([] as Array<PodcastType>);
+  const { podcasts } = useLoaderData() as { podcasts: Array<TopPodcastsFeedEntry> };
   const [search, setSearch] = useState('');
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,14 +28,6 @@ export default function PodcastListPage() {
 
   const visiblePodcasts = useMemo(() => filterPodcasts(podcasts, search), [podcasts, search]);
 
-  useEffect(() => {
-    (async () => {
-      const response = await getPodcasts();
-      console.log(response);
-      setPodcasts(response.feed.entry);
-    })();
-  }, []);
-
   return (
     <main className="podcast-list-page">
       <article className="search-bar">
@@ -35,9 +35,7 @@ export default function PodcastListPage() {
         <Input placeholder="Filter podcasts..." type="search" value={search} onChange={handleSearchChange} />
       </article>
       <article>
-        {visiblePodcasts.length === 0 ? (
-          <p>No podcasts found</p>
-        ) : (
+        {visiblePodcasts?.length > 0 ? (
           <ul>
             {visiblePodcasts.map((podcast) => (
               <li key={podcast.id.attributes['im:id']}>
@@ -53,6 +51,8 @@ export default function PodcastListPage() {
               </li>
             ))}
           </ul>
+        ) : (
+          <span>No podcasts found.</span>
         )}
       </article>
     </main>

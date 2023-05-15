@@ -1,30 +1,32 @@
 import './podcast-detail-page.css';
 
-import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import React from 'react';
+import { defer, Link, useLoaderData } from 'react-router-dom';
 
 import PodcastDetailCard from '@/components/shared/podcast-detail-card';
 import Card from '@/components/ui/card';
-import { EpisodeType, PodcastDetailType } from '@/services/podcasts';
-import { getPodcast } from '@/services/podcasts/podcasts';
+import { getPodcastLookup, getTopPodcasts } from '@/services/podcasts/podcasts';
+import { PodcastLookupResult, TopPodcastsFeedEntry } from '@/services/podcasts/types';
 
 import { formatDate } from './format-date';
 import { msToMin } from './ms-to-min';
 
-export default function PodcastDetailPage() {
-  const { podcastId } = useParams();
-  const [podcast, setPodcast] = useState({} as PodcastDetailType);
-  const [episodes, setEpisodes] = useState([] as Array<EpisodeType>);
+export async function podcastDetailPageLoader({ params }) {
+  const { podcastId } = params;
+  const topPodcastsResponse = await getTopPodcasts();
+  const podcastLookupResponse = await getPodcastLookup(podcastId);
+  console.log(podcastLookupResponse);
+  const podcast = topPodcastsResponse?.feed?.entry?.find?.((el) => el.id.attributes['im:id'] === podcastId) || {};
+  const episodes = podcastLookupResponse?.results?.slice?.(1) || [];
 
-  useEffect(() => {
-    (async () => {
-      const response = await getPodcast(Number(podcastId));
-      console.log(response);
-      const [podcast, ...episodes] = response.results;
-      setPodcast(podcast as PodcastDetailType);
-      setEpisodes(episodes as Array<EpisodeType>);
-    })();
-  }, []);
+  return defer({ podcast, episodes });
+}
+
+export default function PodcastDetailPage() {
+  const { podcast, episodes } = useLoaderData() as {
+    podcast: TopPodcastsFeedEntry;
+    episodes: Array<PodcastLookupResult>;
+  };
 
   return (
     <main className="podcast-detail-page">
@@ -32,31 +34,37 @@ export default function PodcastDetailPage() {
         <PodcastDetailCard podcast={podcast} />
       </article>
       <article>
-        <Card>
-          <h2>Episodes: {episodes.length}</h2>
-        </Card>
-        <Card>
-          <table>
-            <thead>
-              <tr>
-                <th>Title</th>
-                <th>Date</th>
-                <th>Duration</th>
-              </tr>
-            </thead>
-            <tbody>
-              {episodes.map((episode) => (
-                <tr key={episode.trackId}>
-                  <td>
-                    <Link to={`episode/${episode.trackId}`}>{episode.trackName}</Link>
-                  </td>
-                  <td>{formatDate(episode.releaseDate)}</td>
-                  <td>{msToMin(episode.trackTimeMillis)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </Card>
+        {episodes?.length > 0 ? (
+          <>
+            <Card>
+              <h2>Episodes: {episodes.length}</h2>
+            </Card>
+            <Card>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Title</th>
+                    <th>Date</th>
+                    <th>Duration</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {episodes.map((episode) => (
+                    <tr key={episode.trackId}>
+                      <td>
+                        <Link to={`episode/${episode.trackId}`}>{episode.trackName}</Link>
+                      </td>
+                      <td>{formatDate(episode.releaseDate)}</td>
+                      <td>{msToMin(episode.trackTimeMillis)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </Card>
+          </>
+        ) : (
+          <span>No episodes found for this podcast.</span>
+        )}
       </article>
     </main>
   );
