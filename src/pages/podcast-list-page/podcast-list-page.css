@@ -36,7 +36,7 @@
 
 .podcast-list-page .card {
   height: 165px;
-  min-width: 300px;
+  width: 300px;
   display: flex;
   align-items: center;
 }
@@ -52,10 +52,19 @@
 }
 
 .podcast-list-page div h2 {
+  max-width: 270px;
+  overflow: hidden;
+  white-space: nowrap;
   text-transform: uppercase;
+  text-overflow: ellipsis;
   padding: 0.5rem 0;
 }
 
 .podcast-list-page div span {
+  display: block;
   color: var(--neutral-500);
+  max-width: 270px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
