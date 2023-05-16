@@ -4,6 +4,7 @@ import React from 'react';
 
 import Card from '@/components/ui/card';
 import { TopPodcastsFeedEntry } from '@/services/podcasts/types';
+import { linkify } from '@/utils/linkify';
 
 export default function PodcastDetailCard({ podcast }: { podcast: TopPodcastsFeedEntry }) {
   return Object.values(podcast).length > 0 ? (
@@ -17,7 +18,11 @@ export default function PodcastDetailCard({ podcast }: { podcast: TopPodcastsFee
       </div>
       <div>
         <h3>Description:</h3>
-        <p>{podcast.summary.label}</p>
+        <pre
+          dangerouslySetInnerHTML={{
+            __html: linkify(podcast.summary.label)
+          }}
+        />
       </div>
     </Card>
   ) : null;

@@ -7,9 +7,7 @@ import PodcastDetailCard from '@/components/shared/podcast-detail-card';
 import Card from '@/components/ui/card';
 import { getPodcastLookup, getTopPodcasts } from '@/services/podcasts/podcasts';
 import { PodcastLookupResult, TopPodcastsFeedEntry } from '@/services/podcasts/types';
-
-import { formatDate } from './format-date';
-import { msToMin } from './ms-to-min';
+import { formatDate, millisToHms } from '@/utils/date';
 
 export async function podcastDetailPageLoader({ params }) {
   const { podcastId } = params;
@@ -55,7 +53,7 @@ export default function PodcastDetailPage() {
                         <Link to={`episode/${episode.trackId}`}>{episode.trackName}</Link>
                       </td>
                       <td>{formatDate(episode.releaseDate)}</td>
-                      <td>{msToMin(episode.trackTimeMillis)}</td>
+                      <td>{millisToHms(episode.trackTimeMillis)}</td>
                     </tr>
                   ))}
                 </tbody>

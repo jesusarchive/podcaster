@@ -1,12 +1,15 @@
 /* eslint-disable jsx-a11y/media-has-caption */
 import './episode-detail-page.css';
 
-import React from 'react';
+import React, { useRef } from 'react';
 import { defer, useLoaderData } from 'react-router-dom';
 
 import PodcastDetailCard from '@/components/shared/podcast-detail-card';
 import Card from '@/components/ui/card';
 import { getPodcastLookup, getTopPodcasts, PodcastLookupResult, TopPodcastsFeedEntry } from '@/services/podcasts';
+import { linkify } from '@/utils/linkify';
+
+import { useAudioTimestampControls } from './use-audio-timestamp-controls';
 
 export async function episodeDetailPageLoader({ params }) {
   const { podcastId, episodeId } = params;
@@ -14,6 +17,7 @@ export async function episodeDetailPageLoader({ params }) {
   const podcastLookupResponse = await getPodcastLookup(podcastId);
   const podcast = topPodcastsResponse.feed.entry.find((el) => el.id.attributes['im:id'] === podcastId);
   const episode = podcastLookupResponse.results.find((el) => el.trackId === Number(episodeId));
+  console.log(episode);
 
   return defer({ podcast, episode });
 }
@@ -23,6 +27,8 @@ export default function EpisodeDetailPage() {
     podcast: TopPodcastsFeedEntry;
     episode: PodcastLookupResult;
   };
+  const audioRef = useRef(null);
+  const { addAudioTimestampControls } = useAudioTimestampControls(audioRef);
 
   return (
     <main className="episode-detail-page">
@@ -33,11 +39,15 @@ export default function EpisodeDetailPage() {
         <Card>
           <div>
             <h2>{episode.trackName}</h2>
-            <p>{episode.description}</p>
+            <pre
+              dangerouslySetInnerHTML={{
+                __html: addAudioTimestampControls(linkify(episode.description))
+              }}
+            />
           </div>
           <div>
-            <audio controls>
-              <source src={episode.episodeUrl} type="audio/mpeg" />
+            <audio ref={audioRef} controls>
+              <source src={`${episode.episodeUrl}`} type="audio/mpeg" />
               Your browser does not support the audio element.
             </audio>
           </div>

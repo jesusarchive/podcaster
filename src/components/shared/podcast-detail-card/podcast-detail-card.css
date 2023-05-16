@@ -29,10 +29,15 @@
 }
 
 .podcast-detail-card span,
-.podcast-detail-card p {
+.podcast-detail-card pre {
   font-style: italic;
 }
 
-.podcast-detail-card p {
-  overflow-wrap: break-word;
+.podcast-detail-card pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.podcast-detail-card a {
+  color: var(--blue-500);
 }
