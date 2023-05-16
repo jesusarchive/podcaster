@@ -2,7 +2,7 @@
 import './episode-detail-page.css';
 
 import React, { useRef } from 'react';
-import { defer, useLoaderData } from 'react-router-dom';
+import { useLoaderData } from 'react-router-dom';
 
 import PodcastDetailCard from '@/components/shared/podcast-detail-card';
 import Card from '@/components/ui/card';
@@ -23,7 +23,7 @@ export async function episodeDetailPageLoader({ params }) {
   const podcast = topPodcastsResponse.feed.entry.find((el) => el.id.attributes['im:id'] === podcastId);
   const episode = podcastLookupResponse.results.find((el) => el.trackId === Number(episodeId));
 
-  return defer({ podcast, episode });
+  return { podcast, episode };
 }
 
 export default function EpisodeDetailPage() {

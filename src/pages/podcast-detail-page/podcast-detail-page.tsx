@@ -1,7 +1,7 @@
 import './podcast-detail-page.css';
 
 import React from 'react';
-import { defer, Link, useLoaderData } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 
 import PodcastDetailCard from '@/components/shared/podcast-detail-card';
 import Card from '@/components/ui/card';
@@ -14,10 +14,10 @@ export async function podcastDetailPageLoader({ params }) {
   const { podcastId } = params;
   const topPodcastsResponse = await getTopPodcastsData();
   const podcastLookupResponse = await getPodcastLookupData(podcastId);
-  const podcast = topPodcastsResponse?.feed?.entry?.find?.((el) => el.id.attributes['im:id'] === podcastId) || {};
-  const episodes = podcastLookupResponse?.results?.slice?.(1) || [];
+  const podcast = topPodcastsResponse?.feed?.entry?.find?.((el) => el.id.attributes['im:id'] === podcastId);
+  const episodes = podcastLookupResponse?.results?.slice?.(1);
 
-  return defer({ podcast, episodes });
+  return { podcast, episodes };
 }
 
 export default function PodcastDetailPage() {

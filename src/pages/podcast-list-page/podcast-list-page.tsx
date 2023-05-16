@@ -1,7 +1,7 @@
 import './podcast-list-page.css';
 
 import React, { useMemo, useState } from 'react';
-import { defer, Link, useLoaderData } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 
 import Badge from '@/components/ui/badge';
 import Card from '@/components/ui/card';
@@ -14,7 +14,7 @@ import { filterPodcasts } from './helpers';
 export async function podcastListPageLoader() {
   const topPodcastsResponse = await getTopPodcastsData();
 
-  return defer({ podcasts: topPodcastsResponse.feed.entry });
+  return { podcasts: topPodcastsResponse.feed.entry };
 }
 
 export default function PodcastListPage() {
