@@ -7,15 +7,22 @@ import Badge from '@/components/ui/badge';
 import Card from '@/components/ui/card';
 import Input from '@/components/ui/input';
 import { getTopPodcasts } from '@/services/podcasts';
-import { TopPodcastsFeedEntry } from '@/services/podcasts/types';
+import { TopPodcastsFeedEntry, TopPodcastsResponse } from '@/services/podcasts/types';
 
 import { filterPodcasts } from './helpers';
 
 export async function podcastListPageLoader() {
-  const response = await getTopPodcasts();
-  console.log(response);
+  const localStorageTopPodcastsResponse = window?.localStorage?.getItem?.('top-podcasts-response');
+  const topPodcastsResponse =
+    ((localStorageTopPodcastsResponse && JSON.parse(localStorageTopPodcastsResponse)) as TopPodcastsResponse) ||
+    (await getTopPodcasts());
+  console.log(topPodcastsResponse);
 
-  return defer({ podcasts: response.feed.entry });
+  if (!localStorageTopPodcastsResponse) {
+    window?.localStorage?.setItem?.('top-podcasts-response', JSON.stringify(topPodcastsResponse));
+  }
+
+  return defer({ podcasts: topPodcastsResponse.feed.entry });
 }
 
 export default function PodcastListPage() {
