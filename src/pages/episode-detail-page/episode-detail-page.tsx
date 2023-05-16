@@ -7,12 +7,10 @@ import { defer, useLoaderData } from 'react-router-dom';
 import PodcastDetailCard from '@/components/shared/podcast-detail-card';
 import Card from '@/components/ui/card';
 import {
-  getPodcastLookup,
-  getTopPodcasts,
-  PodcastLookupResponse,
+  getPodcastLookupData,
+  getTopPodcastsData,
   PodcastLookupResult,
-  TopPodcastsFeedEntry,
-  TopPodcastsResponse
+  TopPodcastsFeedEntry
 } from '@/services/podcasts';
 import { linkify } from '@/utils/linkify';
 
@@ -20,25 +18,10 @@ import { useAudioTimestampControls } from './use-audio-timestamp-controls';
 
 export async function episodeDetailPageLoader({ params }) {
   const { podcastId, episodeId } = params;
-  const localStorageTopPodcastsResponse = window?.localStorage?.getItem?.('top-podcasts-response');
-  const localStoragePodcastLookupResponse = window?.localStorage?.getItem?.(`podcast-lookup-response-${podcastId}`);
-  const topPodcastsResponse =
-    (localStorageTopPodcastsResponse && (JSON.parse(localStorageTopPodcastsResponse) as TopPodcastsResponse)) ||
-    (await getTopPodcasts());
-  const podcastLookupResponse =
-    (localStoragePodcastLookupResponse && (JSON.parse(localStoragePodcastLookupResponse) as PodcastLookupResponse)) ||
-    (await getPodcastLookup(podcastId));
+  const topPodcastsResponse = await getTopPodcastsData();
+  const podcastLookupResponse = await getPodcastLookupData(podcastId);
   const podcast = topPodcastsResponse.feed.entry.find((el) => el.id.attributes['im:id'] === podcastId);
   const episode = podcastLookupResponse.results.find((el) => el.trackId === Number(episodeId));
-  console.log(episode);
-
-  if (!localStorageTopPodcastsResponse) {
-    window?.localStorage?.setItem?.('top-podcasts-response', JSON.stringify(topPodcastsResponse));
-  }
-
-  if (!localStoragePodcastLookupResponse) {
-    window?.localStorage?.setItem?.(`podcast-lookup-response-${podcastId}`, JSON.stringify(podcastLookupResponse));
-  }
 
   return defer({ podcast, episode });
 }

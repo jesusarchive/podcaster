@@ -17,3 +17,30 @@ export async function getPodcastLookup(id: number, limit = 200): Promise<Podcast
 
   return data;
 }
+
+// get top podcasts data from local storage or fetch
+export async function getTopPodcastsData(): Promise<TopPodcastsResponse> {
+  const key = 'top-podcasts-response';
+  const topPodcastsData = localStorage.getItem(key);
+  const data = (topPodcastsData && (JSON.parse(topPodcastsData) as TopPodcastsResponse)) || (await getTopPodcasts());
+
+  if (!topPodcastsData) {
+    localStorage.setItem(key, JSON.stringify(data));
+  }
+
+  return data;
+}
+
+// get podcast lookup data from local storage or fetch
+export async function getPodcastLookupData(id: number): Promise<PodcastLookupResponse> {
+  const key = `podcast-lookup-response-${id}`;
+  const podcastLookupData = localStorage.getItem(key);
+  const data =
+    (podcastLookupData && (JSON.parse(podcastLookupData) as PodcastLookupResponse)) || (await getPodcastLookup(id));
+
+  if (!podcastLookupData) {
+    localStorage.setItem(key, JSON.stringify(data));
+  }
+
+  return data;
+}

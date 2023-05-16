@@ -6,21 +6,13 @@ import { defer, Link, useLoaderData } from 'react-router-dom';
 import Badge from '@/components/ui/badge';
 import Card from '@/components/ui/card';
 import Input from '@/components/ui/input';
-import { getTopPodcasts } from '@/services/podcasts';
-import { TopPodcastsFeedEntry, TopPodcastsResponse } from '@/services/podcasts/types';
+import { getTopPodcastsData } from '@/services/podcasts';
+import { TopPodcastsFeedEntry } from '@/services/podcasts/types';
 
 import { filterPodcasts } from './helpers';
 
 export async function podcastListPageLoader() {
-  const localStorageTopPodcastsResponse = window?.localStorage?.getItem?.('top-podcasts-response');
-  const topPodcastsResponse =
-    ((localStorageTopPodcastsResponse && JSON.parse(localStorageTopPodcastsResponse)) as TopPodcastsResponse) ||
-    (await getTopPodcasts());
-  console.log(topPodcastsResponse);
-
-  if (!localStorageTopPodcastsResponse) {
-    window?.localStorage?.setItem?.('top-podcasts-response', JSON.stringify(topPodcastsResponse));
-  }
+  const topPodcastsResponse = await getTopPodcastsData();
 
   return defer({ podcasts: topPodcastsResponse.feed.entry });
 }
