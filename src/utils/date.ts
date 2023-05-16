@@ -1,7 +1,9 @@
+// format date to locale date string
 export function formatDate(date: string): string {
   return new Date(date).toLocaleDateString();
 }
 
+// convert milliseconds to hours, minutes and seconds
 export const millisToHms = (millis: number): string => {
   const hours = Math.floor(millis / 3600000);
   const minutes = Math.floor((millis % 3600000) / 60000);
@@ -14,6 +16,7 @@ export const millisToHms = (millis: number): string => {
   return `${hoursStr}${minutesStr}${secondsStr}`;
 };
 
+// convert hours, minutes and seconds to seconds
 export function hmsToSeconds(time: string): number {
   const [seconds, minutes, hours = 0] = time
     .split(':')

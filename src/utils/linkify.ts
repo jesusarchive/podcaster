@@ -1,4 +1,5 @@
-export function linkify(text: string) {
+// replace urls and emails with anchor tags
+export function linkify(text: string): string {
   const urlRegex =
     /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
   const emailRegex = /([\w.]+@[\w.]+\.[\w]+)/g;
