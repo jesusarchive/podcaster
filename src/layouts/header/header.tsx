@@ -31,11 +31,7 @@ export default function Header() {
       <nav>
         <Link to="/">Podcaster</Link>
 
-        {loading && (
-          <div>
-            <Loader />
-          </div>
-        )}
+        {loading && <Loader />}
       </nav>
     </header>
   );

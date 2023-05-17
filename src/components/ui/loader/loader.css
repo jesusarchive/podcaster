@@ -1,32 +1,47 @@
 .loader {
   display: flex;
-  justify-content: center;
-  align-items: center;
   position: relative;
+  width: 40px;
+  height: 40px;
+  margin: 1rem;
 }
-
-.loader span {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
+.loader div {
   position: absolute;
-  background-color: var(--blue-500);
   border: 2px solid var(--blue-500);
-  animation: loading 1s infinite ease-in-out;
+  opacity: 1;
+  border-radius: 50%;
+  animation: loader 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
 }
-
-.loader span:nth-child(2) {
-  animation: loading 1s infinite ease-in-out 0.5s;
+.loader div:nth-child(2) {
+  animation-delay: -0.5s;
 }
-
-@keyframes loading {
+@keyframes loader {
   0% {
-    transform: scale(0);
+    top: 18px;
+    left: 18px;
+    width: 0;
+    height: 0;
+    opacity: 0;
   }
-
+  4.9% {
+    top: 18px;
+    left: 18px;
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
+  5% {
+    top: 18px;
+    left: 18px;
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
   100% {
-    background-color: transparent;
-    transform: scale(2);
+    top: 0px;
+    left: 0px;
+    width: 36px;
+    height: 36px;
     opacity: 0;
   }
 }
