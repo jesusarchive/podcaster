@@ -1,7 +1,7 @@
 import './podcast-list-page.css';
 
 import React, { Fragment, Suspense, useState } from 'react';
-import { Await, defer, Link, useLoaderData } from 'react-router-dom';
+import { Await, defer, Link, useLoaderData, useNavigation } from 'react-router-dom';
 
 import Badge from '@/components/ui/badge';
 import Card from '@/components/ui/card';
@@ -31,10 +31,18 @@ export async function podcastListPageLoader() {
  */
 export default function PodcastListPage() {
   const { podcastsPromise } = useLoaderData() as { podcastsPromise: Promise<Array<TopPodcastsFeedEntry>> };
+  const { state } = useNavigation();
   const [search, setSearch] = useState('');
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
+  };
+
+  const handleLinkClick = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    // prevent navigation when loading podcast detail page
+    if (state === 'loading') {
+      event.preventDefault();
+    }
   };
 
   useDocumentTitle('Top Podcasts | Podcaster');
@@ -42,22 +50,24 @@ export default function PodcastListPage() {
   return (
     <main className="podcast-list-page">
       <Suspense fallback={<p>Loading top podcasts...</p>}>
-        <Await resolve={podcastsPromise}>
+        <Await resolve={podcastsPromise} errorElement={<p>Could not load podcasts 😬</p>}>
           {(podcasts) => {
             const visiblePodcasts = filterPodcasts(podcasts, search);
 
             return (
               <Fragment>
+                {/* SEARCH BAR */}
                 <article className="search-bar">
                   <Badge>{visiblePodcasts.length}</Badge>
                   <Input placeholder="Filter podcasts..." type="search" value={search} onChange={handleSearchChange} />
                 </article>
+                {/* TOP PODCASTS LIST */}
                 <article>
                   {visiblePodcasts?.length > 0 ? (
                     <ul>
                       {visiblePodcasts.map((podcast) => (
                         <li key={podcast.id.attributes['im:id']}>
-                          <Link to={`/podcast/${podcast.id.attributes['im:id']}`}>
+                          <Link to={`/podcast/${podcast.id.attributes['im:id']}`} onClick={handleLinkClick}>
                             <Card>
                               <img src={podcast['im:image'][2].label} alt="logo"></img>
                               <div>
@@ -70,6 +80,7 @@ export default function PodcastListPage() {
                       ))}
                     </ul>
                   ) : (
+                    /* FALLBACK MESSAGE */
                     <span>No podcasts found.</span>
                   )}
                 </article>
