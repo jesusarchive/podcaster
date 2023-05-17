@@ -11,7 +11,7 @@ describe('Input', () => {
   });
 
   it('should render the input component with props', () => {
-    const { container } = render(<Input placeholder="input" type="text" value="input" />);
+    const { container } = render(<Input placeholder="input" type="text" defaultValue="input" />);
 
     expect(container).toMatchSnapshot();
   });

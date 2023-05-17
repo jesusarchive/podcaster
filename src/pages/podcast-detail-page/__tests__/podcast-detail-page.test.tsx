@@ -1,11 +1,19 @@
 import { render } from '@testing-library/react';
 import React from 'react';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import PodcastDetailPage from '../podcast-detail-page';
+import PodcastDetailPage from '..';
 
 describe('<PodcastDetailPage />', () => {
-  test('PodcastDetailPage mounts properly', () => {
-    const wrapper = render(<PodcastDetailPage />);
-    expect(wrapper).toBeTruthy();
+  it('renders podcast detail page', () => {
+    const router = createBrowserRouter([
+      {
+        path: '/',
+        element: <PodcastDetailPage />
+      }
+    ]);
+
+    const { container } = render(<RouterProvider router={router} />);
+    expect(container).toBeTruthy();
   });
 });

@@ -9,11 +9,11 @@ const mockData = {
 
 describe('makeRequest', () => {
   beforeAll(() => {
-    global.fetch = jest.fn(() =>
+    (global.fetch as jest.Mock) = jest.fn(() =>
       Promise.resolve({
         json: () => Promise.resolve(mockData)
       })
-    ) as jest.Mock;
+    );
   });
 
   it('should return a promise', () => {
