@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Input should render the input component 1`] = `
+exports[`<Input /> should render the input component 1`] = `
 <div>
   <input
     class="input input-bordered"
@@ -8,7 +8,7 @@ exports[`Input should render the input component 1`] = `
 </div>
 `;
 
-exports[`Input should render the input component with a custom class name 1`] = `
+exports[`<Input /> should render the input component with a custom class name 1`] = `
 <div>
   <input
     class="input custom-class input-bordered"
@@ -16,7 +16,7 @@ exports[`Input should render the input component with a custom class name 1`] = 
 </div>
 `;
 
-exports[`Input should render the input component with props 1`] = `
+exports[`<Input /> should render the input component with props 1`] = `
 <div>
   <input
     class="input input-bordered"
@@ -27,7 +27,7 @@ exports[`Input should render the input component with props 1`] = `
 </div>
 `;
 
-exports[`Input should render the input component without bordered prop 1`] = `
+exports[`<Input /> should render the input component without bordered prop 1`] = `
 <div>
   <input
     class="input"

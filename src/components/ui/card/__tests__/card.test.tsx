@@ -3,7 +3,7 @@ import React from 'react';
 
 import Card from '..';
 
-describe('Card', () => {
+describe('<Card />', () => {
   it('should render the card component', () => {
     const { container } = render(<Card>Card</Card>);
 

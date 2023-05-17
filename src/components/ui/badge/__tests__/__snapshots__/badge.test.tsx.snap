@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Badge should render the badge component 1`] = `
+exports[`<Badge /> should render the badge component 1`] = `
 <div>
   <span
     class="badge"
@@ -10,7 +10,7 @@ exports[`Badge should render the badge component 1`] = `
 </div>
 `;
 
-exports[`Badge should render the badge component with a custom class name 1`] = `
+exports[`<Badge /> should render the badge component with a custom class name 1`] = `
 <div>
   <span
     class="badge custom-class"

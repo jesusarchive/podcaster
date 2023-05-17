@@ -3,7 +3,7 @@ import React from 'react';
 
 import Input from '..';
 
-describe('Input', () => {
+describe('<Input />', () => {
   it('should render the input component', () => {
     const { container } = render(<Input />);
 

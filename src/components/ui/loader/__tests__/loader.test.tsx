@@ -5,7 +5,7 @@ import React from 'react';
 
 import Loader from '..';
 
-describe('Loader', () => {
+describe('<Loader />', () => {
   it('should render the loader component', () => {
     const { container } = render(<Loader />);
 
