@@ -106,8 +106,8 @@ export async function getPodcastEpisodesData(id: string): Promise<Array<PodcastL
 
 // get podcast lookup episode
 export async function getPodcastEpisodeData(podcastId: string, episodeId: string): Promise<PodcastLookupResult> {
-  const data = await getPodcastLookupDataRaw(Number(podcastId));
-  const episode = data?.results?.find?.((el) => el.trackId === Number(episodeId));
+  const episodes = await getPodcastEpisodesData(podcastId);
+  const episode = episodes?.find?.((el) => el.trackId === Number(episodeId));
 
   return episode;
 }
