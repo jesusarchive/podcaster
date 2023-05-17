@@ -7,15 +7,15 @@ import Badge from '@/components/ui/badge';
 import Card from '@/components/ui/card';
 import Input from '@/components/ui/input';
 import { useDocumentTitle } from '@/hooks/use-document-title';
-import { getTopPodcastsData } from '@/services/podcasts';
-import { TopPodcastsFeedEntry } from '@/services/podcasts/types';
+import { getTopPodcastsData, TopPodcastsFeedEntry } from '@/services/podcast';
 
 import { filterPodcasts } from './helpers';
 
+// get data from local storage or fetch from API
 export async function podcastListPageLoader() {
-  const topPodcastsResponse = await getTopPodcastsData();
+  const podcasts = await getTopPodcastsData();
 
-  return { podcasts: topPodcastsResponse.feed.entry };
+  return { podcasts };
 }
 
 export default function PodcastListPage() {

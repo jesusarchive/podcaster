@@ -6,17 +6,14 @@ import { Link, useLoaderData } from 'react-router-dom';
 import PodcastDetailCard from '@/components/shared/podcast-detail-card';
 import Card from '@/components/ui/card';
 import { useDocumentTitle } from '@/hooks/use-document-title';
-import { getPodcastLookupData, getTopPodcastsData } from '@/services/podcasts/podcasts';
-import { PodcastLookupResult, TopPodcastsFeedEntry } from '@/services/podcasts/types';
+import { getPodcastData, getPodcastEpisodesData, PodcastLookupResult, TopPodcastsFeedEntry } from '@/services/podcast';
 import { formatDate, millisToHms } from '@/utils/date';
 
 // get data from local storage or fetch from API
 export async function podcastDetailPageLoader({ params }) {
   const { podcastId } = params;
-  const topPodcastsResponse = await getTopPodcastsData();
-  const podcastLookupResponse = await getPodcastLookupData(podcastId);
-  const podcast = topPodcastsResponse?.feed?.entry?.find?.((el) => el.id.attributes['im:id'] === podcastId);
-  const episodes = podcastLookupResponse?.results?.slice?.(1);
+  const podcast = await getPodcastData(podcastId);
+  const episodes = await getPodcastEpisodesData(podcastId);
 
   return { podcast, episodes };
 }
@@ -67,6 +64,18 @@ export default function PodcastDetailPage() {
           <span>No episodes found for this podcast.</span>
         )}
       </article>
+
+      {/* <article>
+        <React.Suspense fallback={<p>Loading package location...</p>}>
+          <Await resolve={data.packageLocation} errorElement={<p>Error loading package location!</p>}>
+            {(packageLocation) => (
+              <p>
+                Your package is at {packageLocation.latitude} lat and {packageLocation.longitude} long.
+              </p>
+            )}
+          </Await>
+        </React.Suspense>
+      </article> */}
     </main>
   );
 }

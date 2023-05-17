@@ -133,7 +133,7 @@ export type PodcastLookupResult = {
   contentAdvisoryRating: string;
   artworkUrl600: string;
   genreIds?: Array<string>;
-  genres: Array<any>;
+  genres: Array<unknown>;
   episodeUrl?: string;
   artistIds?: Array<number>;
   closedCaptioning?: string;

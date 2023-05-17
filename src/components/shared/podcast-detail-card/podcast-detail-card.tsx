@@ -3,7 +3,7 @@ import './podcast-detail-card.css';
 import React from 'react';
 
 import Card from '@/components/ui/card';
-import { TopPodcastsFeedEntry } from '@/services/podcasts/types';
+import { TopPodcastsFeedEntry } from '@/services/podcast';
 import { linkify } from '@/utils/linkify';
 
 export default function PodcastDetailCard({ podcast }: { podcast: TopPodcastsFeedEntry }) {

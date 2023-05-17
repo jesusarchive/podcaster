@@ -1,4 +1,4 @@
-import { TopPodcastsFeedEntry } from '@/services/podcasts/types';
+import { TopPodcastsFeedEntry } from '@/services/podcast';
 
 export function filterPodcasts(podcasts: Array<TopPodcastsFeedEntry>, search: string) {
   return podcasts.filter((podcast) => {

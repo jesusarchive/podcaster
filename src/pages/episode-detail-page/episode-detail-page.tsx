@@ -7,22 +7,16 @@ import { useLoaderData } from 'react-router-dom';
 import PodcastDetailCard from '@/components/shared/podcast-detail-card';
 import Card from '@/components/ui/card';
 import { useDocumentTitle } from '@/hooks/use-document-title';
-import {
-  getPodcastLookupData,
-  getTopPodcastsData,
-  PodcastLookupResult,
-  TopPodcastsFeedEntry
-} from '@/services/podcasts';
+import { getPodcastData, getPodcastEpisodeData, PodcastLookupResult, TopPodcastsFeedEntry } from '@/services/podcast';
 import { linkify } from '@/utils/linkify';
 
 import { useAudioTimestampControls } from './use-audio-timestamp-controls';
 
+// get data from local storage or fetch from API
 export async function episodeDetailPageLoader({ params }) {
   const { podcastId, episodeId } = params;
-  const topPodcastsResponse = await getTopPodcastsData();
-  const podcastLookupResponse = await getPodcastLookupData(podcastId);
-  const podcast = topPodcastsResponse.feed.entry.find((el) => el.id.attributes['im:id'] === podcastId);
-  const episode = podcastLookupResponse.results.find((el) => el.trackId === Number(episodeId));
+  const podcast = await getPodcastData(podcastId);
+  const episode = await getPodcastEpisodeData(podcastId, episodeId);
 
   return { podcast, episode };
 }
