@@ -9,3 +9,13 @@ exports[`Badge should render the badge component 1`] = `
   </span>
 </div>
 `;
+
+exports[`Badge should render the badge component with a custom class name 1`] = `
+<div>
+  <span
+    class="badge custom-class"
+  >
+    Badge
+  </span>
+</div>
+`;

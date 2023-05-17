@@ -9,9 +9,9 @@ import React from 'react';
  *
  * Small numerical value or status descriptor.
  */
-export default function Badge(props: React.HTMLAttributes<HTMLSpanElement>) {
+export default function Badge({ className, ...props }: React.HTMLAttributes<HTMLSpanElement>) {
   return (
-    <span className={clsx('badge', props.className)} {...props}>
+    <span className={clsx('badge', className)} {...props}>
       {props.children}
     </span>
   );
