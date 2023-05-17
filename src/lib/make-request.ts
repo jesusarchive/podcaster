@@ -9,7 +9,7 @@ export async function makeRequest(input: RequestInfo | URL, init?: RequestInit) 
   const response = await fetch(input, init);
   const data = await response.json();
 
-  if (data.error) {
+  if (data && data.error) {
     throw new Error(data.error);
   }
 
