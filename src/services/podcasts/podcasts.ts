@@ -10,7 +10,7 @@ export async function getTopPodcasts(limit = 100): Promise<TopPodcastsResponse> 
   return data;
 }
 
-// get podcast lookup, returns episode array
+// get podcast lookup data
 export async function getPodcastLookup(id: number, limit = 200): Promise<PodcastLookupResponse> {
   const response = await fetch(`${API_URL}/lookup?id=${id}&media=podcast&entity=podcastEpisode&limit=${limit}`);
   const data = await response.json();
@@ -20,12 +20,17 @@ export async function getPodcastLookup(id: number, limit = 200): Promise<Podcast
 
 // get top podcasts data from local storage or fetch
 export async function getTopPodcastsData(): Promise<TopPodcastsResponse> {
-  const key = 'top-podcasts-response';
-  const topPodcastsData = localStorage.getItem(key);
-  const data = (topPodcastsData && (JSON.parse(topPodcastsData) as TopPodcastsResponse)) || (await getTopPodcasts());
+  const localStorageKey = 'top-podcasts-response';
+  // get local storage data
+  const rawTopPodcastsData = localStorage.getItem(localStorageKey);
+  // parse local storage data
+  const parsedTopPodcastsData = rawTopPodcastsData && JSON.parse(rawTopPodcastsData);
+  // get data from api or local storage
+  const data = (parsedTopPodcastsData as TopPodcastsResponse) || (await getTopPodcasts());
 
-  if (!topPodcastsData) {
-    localStorage.setItem(key, JSON.stringify(data));
+  // if no local storage data, set local storage data
+  if (!rawTopPodcastsData) {
+    localStorage.setItem(localStorageKey, JSON.stringify(data));
   }
 
   return data;
@@ -33,13 +38,20 @@ export async function getTopPodcastsData(): Promise<TopPodcastsResponse> {
 
 // get podcast lookup data from local storage or fetch
 export async function getPodcastLookupData(id: number): Promise<PodcastLookupResponse> {
-  const key = `podcast-lookup-response-${id}`;
-  const podcastLookupData = localStorage.getItem(key);
-  const data =
-    (podcastLookupData && (JSON.parse(podcastLookupData) as PodcastLookupResponse)) || (await getPodcastLookup(id));
+  const localStorageKey = 'podcast-lookup-responses';
+  // get local storage data
+  const rawPodcastLookupResponsesData = localStorage.getItem(localStorageKey);
+  // parse local storage data
+  const parsedPodcastLookupResponsesData =
+    (rawPodcastLookupResponsesData && JSON.parse(rawPodcastLookupResponsesData)) || {};
+  // get local storage data for current podcast
+  const podcastLookupData = parsedPodcastLookupResponsesData[id];
+  // get data from api or local storage
+  const data = (podcastLookupData as PodcastLookupResponse) || (await getPodcastLookup(id));
 
+  // if no local storage data, set local storage data
   if (!podcastLookupData) {
-    localStorage.setItem(key, JSON.stringify(data));
+    localStorage.setItem(localStorageKey, JSON.stringify({ ...parsedPodcastLookupResponsesData, [id]: data }));
   }
 
   return data;
