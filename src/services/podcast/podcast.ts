@@ -1,3 +1,5 @@
+import { makeRequest } from '@/lib/make-request';
+
 import { PodcastLookupResponse, PodcastLookupResult, TopPodcastsFeedEntry, TopPodcastsResponse } from './types';
 
 /**
@@ -13,18 +15,16 @@ export function allOrigins(url: string): string {
 
 // get top podcasts
 export async function getTopPodcasts(limit = 100): Promise<TopPodcastsResponse> {
-  const response = await fetch(allOrigins(`${API_URL}/us/rss/toppodcasts/limit=${limit}/json`));
-  const data = await response.json();
+  const data = await makeRequest(allOrigins(`${API_URL}/us/rss/toppodcasts/limit=${limit}/json`));
 
   return data;
 }
 
 // get podcast lookup data, it returns a simplified version of podcast data and episodes
 export async function getPodcastLookup(id: number, limit = 200): Promise<PodcastLookupResponse> {
-  const response = await fetch(
+  const data = await makeRequest(
     allOrigins(`${API_URL}/lookup?id=${id}&media=podcast&entity=podcastEpisode&limit=${limit}`)
   );
-  const data = await response.json();
 
   return data;
 }
@@ -53,7 +53,7 @@ export async function getTopPodcastsDataRaw(): Promise<TopPodcastsResponse> {
   return data;
 }
 
-// get podcast lookup data from local storage or fetch
+// get podcast lookup data from local storage or api
 export async function getPodcastLookupDataRaw(id: number): Promise<PodcastLookupResponse> {
   const localStorageKey = 'podcast-lookup-responses';
   // get local storage data
