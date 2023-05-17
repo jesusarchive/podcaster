@@ -44,9 +44,11 @@ export default function EpisodeDetailPage() {
 
   return (
     <main className="episode-detail-page">
+      {/* PODCAST DETAIL CARD */}
       <article>
         <PodcastDetailCard podcast={podcast} />
       </article>
+      {/* EPISODE DATA AND AUDIO PLAYER */}
       <article>
         <Card>
           <div>

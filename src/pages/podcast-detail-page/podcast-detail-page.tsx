@@ -39,9 +39,11 @@ export default function PodcastDetailPage() {
 
   return (
     <main className="podcast-detail-page">
+      {/* PODCAST DETAIL CARD */}
       <article>
         <PodcastDetailCard podcast={podcast} />
       </article>
+      {/* PODCAST EPISODES TABLE */}
       <article>
         {episodes?.length > 0 ? (
           <>
@@ -72,6 +74,7 @@ export default function PodcastDetailPage() {
             </Card>
           </>
         ) : (
+          /* FALLBACK MESSAGE */
           <span>No episodes found for this podcast.</span>
         )}
       </article>
