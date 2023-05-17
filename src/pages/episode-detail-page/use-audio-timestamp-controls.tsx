@@ -15,7 +15,11 @@ function addAudioTimestampControls(text: string): string {
   );
 }
 
-// custom hook to add timestamp control buttons to text
+/**
+ * Use audio timestamp controls custom hook
+ *
+ * Adds timestamp control buttons to text and sets audio player's current time to timestamp control button's value.
+ */
 export function useAudioTimestampControls(audioRef: React.RefObject<HTMLAudioElement>): {
   addAudioTimestampControls: (text: string) => string;
 } {

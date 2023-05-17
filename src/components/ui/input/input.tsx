@@ -8,6 +8,11 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
   bordered?: boolean;
 }
 
+/**
+ * Input component
+ *
+ * A basic input field with styles.
+ */
 export default function Input({ bordered = true, className, ...props }: InputProps) {
   return <input {...props} className={clsx('input', className, { 'input-bordered': bordered })} />;
 }

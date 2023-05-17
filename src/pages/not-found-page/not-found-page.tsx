@@ -4,6 +4,11 @@ import React from 'react';
 
 import { useDocumentTitle } from '@/hooks/use-document-title';
 
+/**
+ * Not found page
+ *
+ * Shows a 404 page when a route is not found.
+ */
 export default function NotFoundPage() {
   useDocumentTitle('Podcaster');
 

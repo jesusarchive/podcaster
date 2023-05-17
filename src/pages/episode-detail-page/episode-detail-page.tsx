@@ -12,7 +12,13 @@ import { linkify } from '@/utils/linkify';
 
 import { useAudioTimestampControls } from './use-audio-timestamp-controls';
 
-// get data from local storage or fetch from API
+/**
+ * Episode detail page loader
+ *
+ * Get data from local storage or fetch from API
+ *
+ * @see https://reactrouter.com/en/main/route/loader
+ */
 export async function episodeDetailPageLoader({ params }) {
   const { podcastId, episodeId } = params;
   const podcast = await getPodcastData(podcastId);
@@ -21,6 +27,11 @@ export async function episodeDetailPageLoader({ params }) {
   return { podcast, episode };
 }
 
+/**
+ * Episode detail page
+ *
+ * Shows episode information and audio player
+ */
 export default function EpisodeDetailPage() {
   const { podcast, episode } = useLoaderData() as {
     podcast: TopPodcastsFeedEntry;

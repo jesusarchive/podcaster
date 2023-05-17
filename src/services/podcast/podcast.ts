@@ -1,7 +1,6 @@
 import { PodcastLookupResponse, PodcastLookupResult, TopPodcastsFeedEntry, TopPodcastsResponse } from './types';
 
 /**
- *
  * API functions
  */
 
@@ -31,8 +30,9 @@ export async function getPodcastLookup(id: number, limit = 200): Promise<Podcast
 }
 
 /**
+ * Local storage functions
  *
- * Local storage functions to get data from local storage or api
+ * Get data from local storage or api.
  */
 
 // get top podcasts data from local storage or fetch
@@ -75,8 +75,9 @@ export async function getPodcastLookupDataRaw(id: number): Promise<PodcastLookup
 }
 
 /**
+ * Helper functions
  *
- * Helper functions to get formatted data from local storage or api
+ * Get formatted data from local storage or api.
  */
 
 // get top podcasts array

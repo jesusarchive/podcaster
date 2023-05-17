@@ -6,6 +6,11 @@ import Card from '@/components/ui/card';
 import { TopPodcastsFeedEntry } from '@/services/podcast';
 import { linkify } from '@/utils/linkify';
 
+/**
+ * Podcast detail card component
+ *
+ * Shows podcast information.
+ */
 export default function PodcastDetailCard({ podcast }: { podcast: TopPodcastsFeedEntry }) {
   return Object.values(podcast).length > 0 ? (
     <Card className="podcast-detail-card">

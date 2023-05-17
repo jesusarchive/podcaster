@@ -9,7 +9,13 @@ import { useDocumentTitle } from '@/hooks/use-document-title';
 import { getPodcastData, getPodcastEpisodesData, PodcastLookupResult, TopPodcastsFeedEntry } from '@/services/podcast';
 import { formatDate, millisToHms } from '@/utils/date';
 
-// get data from local storage or fetch from API
+/**
+ * Podcast detail page loader
+ *
+ * Get data from local storage or fetch from API.
+ *
+ * @see https://reactrouter.com/en/main/route/loader
+ */
 export async function podcastDetailPageLoader({ params }) {
   const { podcastId } = params;
   const podcast = await getPodcastData(podcastId);
@@ -18,6 +24,11 @@ export async function podcastDetailPageLoader({ params }) {
   return { podcast, episodes };
 }
 
+/**
+ * Podcast detail page
+ *
+ * Shows podcast information and a list of episodes.
+ */
 export default function PodcastDetailPage() {
   const { podcast, episodes } = useLoaderData() as {
     podcast: TopPodcastsFeedEntry;
@@ -64,18 +75,6 @@ export default function PodcastDetailPage() {
           <span>No episodes found for this podcast.</span>
         )}
       </article>
-
-      {/* <article>
-        <React.Suspense fallback={<p>Loading package location...</p>}>
-          <Await resolve={data.packageLocation} errorElement={<p>Error loading package location!</p>}>
-            {(packageLocation) => (
-              <p>
-                Your package is at {packageLocation.latitude} lat and {packageLocation.longitude} long.
-              </p>
-            )}
-          </Await>
-        </React.Suspense>
-      </article> */}
     </main>
   );
 }

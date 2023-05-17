@@ -11,13 +11,24 @@ import { getTopPodcastsData, TopPodcastsFeedEntry } from '@/services/podcast';
 
 import { filterPodcasts } from './helpers';
 
-// get data from local storage or fetch from API
+/**
+ * Podcast list page loader
+ *
+ * Get data from local storage or fetch from API.
+ *
+ * @see https://reactrouter.com/en/main/route/loader
+ */
 export async function podcastListPageLoader() {
   const podcastsPromise = getTopPodcastsData();
 
   return defer({ podcastsPromise });
 }
 
+/**
+ * Podcast list page
+ *
+ * Shows a list of top podcasts.
+ */
 export default function PodcastListPage() {
   const { podcastsPromise } = useLoaderData() as { podcastsPromise: Promise<Array<TopPodcastsFeedEntry>> };
   const [search, setSearch] = useState('');

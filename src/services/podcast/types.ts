@@ -1,3 +1,8 @@
+/**
+ * Types for the podcast service
+ */
+
+// Top podcasts
 export type TopPodcastsFeedEntry = {
   'im:name': {
     label: string;
@@ -101,6 +106,7 @@ export type TopPodcastsResponse = {
   };
 };
 
+// Podcast lookup
 export type PodcastLookupResult = {
   wrapperType: string;
   kind: string;
