@@ -1,8 +1,6 @@
 import React from 'react';
 import { useRouteError } from 'react-router-dom';
 
-import { useDocumentTitle } from '@/hooks/use-document-title';
-
 /**
  * Error boundary component
  *
@@ -11,10 +9,14 @@ import { useDocumentTitle } from '@/hooks/use-document-title';
  * @see https://reactrouter.com/en/6.11.1/route/error-element
  */
 export default function ErrorBoundary() {
-  const error = useRouteError();
+  const error = useRouteError() as Error;
   console.error(error);
 
-  useDocumentTitle('Podcaster');
-
-  return <div style={{ padding: '1rem' }}>Oops! Something went wrong.</div>;
+  return (
+    <div style={{ padding: '1rem' }}>
+      <h1>Uh oh, something went terribly wrong 😩</h1>
+      <pre>{error.message || JSON.stringify(error)}</pre>
+      <button onClick={() => (window.location.href = '/')}>Click here to reload the app</button>
+    </div>
+  );
 }
