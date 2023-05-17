@@ -1,5 +1,5 @@
 import React from 'react';
-import { createBrowserRouter, Outlet } from 'react-router-dom';
+import { createBrowserRouter, Outlet, ScrollRestoration } from 'react-router-dom';
 
 import ErrorBoundary from '@/components/error-boundary';
 import Header from '@/layouts/header';
@@ -15,6 +15,7 @@ export default createBrowserRouter([
       <>
         <Header />
         <Outlet />
+        <ScrollRestoration />
       </>
     ),
     children: [
