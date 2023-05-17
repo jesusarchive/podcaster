@@ -6,6 +6,7 @@ import { useLoaderData } from 'react-router-dom';
 
 import PodcastDetailCard from '@/components/shared/podcast-detail-card';
 import Card from '@/components/ui/card';
+import { useDocumentTitle } from '@/hooks/use-document-title';
 import {
   getPodcastLookupData,
   getTopPodcastsData,
@@ -33,6 +34,8 @@ export default function EpisodeDetailPage() {
   };
   const audioRef = useRef(null);
   const { addAudioTimestampControls } = useAudioTimestampControls(audioRef);
+
+  useDocumentTitle(`${episode.trackName} | Podcaster`);
 
   return (
     <main className="episode-detail-page">

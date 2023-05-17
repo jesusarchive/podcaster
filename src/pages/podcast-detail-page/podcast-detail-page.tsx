@@ -5,6 +5,7 @@ import { Link, useLoaderData } from 'react-router-dom';
 
 import PodcastDetailCard from '@/components/shared/podcast-detail-card';
 import Card from '@/components/ui/card';
+import { useDocumentTitle } from '@/hooks/use-document-title';
 import { getPodcastLookupData, getTopPodcastsData } from '@/services/podcasts/podcasts';
 import { PodcastLookupResult, TopPodcastsFeedEntry } from '@/services/podcasts/types';
 import { formatDate, millisToHms } from '@/utils/date';
@@ -25,6 +26,8 @@ export default function PodcastDetailPage() {
     podcast: TopPodcastsFeedEntry;
     episodes: Array<PodcastLookupResult>;
   };
+
+  useDocumentTitle(`${podcast?.['im:name'].label} | Podcaster`);
 
   return (
     <main className="podcast-detail-page">

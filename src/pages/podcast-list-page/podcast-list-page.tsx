@@ -6,6 +6,7 @@ import { Link, useLoaderData } from 'react-router-dom';
 import Badge from '@/components/ui/badge';
 import Card from '@/components/ui/card';
 import Input from '@/components/ui/input';
+import { useDocumentTitle } from '@/hooks/use-document-title';
 import { getTopPodcastsData } from '@/services/podcasts';
 import { TopPodcastsFeedEntry } from '@/services/podcasts/types';
 
@@ -26,6 +27,8 @@ export default function PodcastListPage() {
   };
 
   const visiblePodcasts = useMemo(() => filterPodcasts(podcasts, search), [podcasts, search]);
+
+  useDocumentTitle('Top Podcasts | Podcaster');
 
   return (
     <main className="podcast-list-page">
