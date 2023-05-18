@@ -4,7 +4,6 @@ import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } 
 
 import podcastLookupResponseMockfrom from '@/services/podcast/__mocks__/podcast-lookup-response-mock.json';
 import topPodcastsResponseMock from '@/services/podcast/__mocks__/top-podcasts-response-mock.json';
-import { getWindow } from '@/utils/testing';
 
 import EpisodeDetailPage, { episodeDetailPageLoader } from '..';
 
@@ -18,16 +17,13 @@ describe('<EpisodeDetailPage />', () => {
   });
 
   it('should call episodeDetailPageLoader', async () => {
-    const router = createBrowserRouter(
-      [
-        {
-          path: '/',
-          element: <EpisodeDetailPage />,
-          loader: episodeDetailPageLoader
-        }
-      ],
-      { window: getWindow('/') }
-    );
+    const router = createBrowserRouter([
+      {
+        path: '/',
+        element: <EpisodeDetailPage />,
+        loader: episodeDetailPageLoader
+      }
+    ]);
 
     render(<RouterProvider router={router} />);
     expect(router).toBeTruthy();
@@ -43,10 +39,7 @@ describe('<EpisodeDetailPage />', () => {
       }
     };
     const router = createBrowserRouter(
-      createRoutesFromElements(<Route path="/" element={<EpisodeDetailPage />}></Route>),
-      {
-        window: getWindow('/')
-      }
+      createRoutesFromElements(<Route path="/" element={<EpisodeDetailPage />}></Route>)
     );
 
     const { container } = render(<RouterProvider router={router} />);
@@ -63,10 +56,7 @@ describe('<EpisodeDetailPage />', () => {
       }
     };
     const router = createBrowserRouter(
-      createRoutesFromElements(<Route path="/" element={<EpisodeDetailPage />}></Route>),
-      {
-        window: getWindow('/')
-      }
+      createRoutesFromElements(<Route path="/" element={<EpisodeDetailPage />}></Route>)
     );
 
     const { container } = render(<RouterProvider router={router} />);
@@ -83,10 +73,7 @@ describe('<EpisodeDetailPage />', () => {
       }
     };
     const router = createBrowserRouter(
-      createRoutesFromElements(<Route path="/" element={<EpisodeDetailPage />}></Route>),
-      {
-        window: getWindow('/')
-      }
+      createRoutesFromElements(<Route path="/" element={<EpisodeDetailPage />}></Route>)
     );
 
     const { container } = render(<RouterProvider router={router} />);

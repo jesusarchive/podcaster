@@ -17,13 +17,12 @@ import { filterPodcasts } from './helpers';
  * Get data from local storage or fetch from API.
  *
  * @see https://reactrouter.com/en/main/route/loader
+ * @see https://reactrouter.com/en/main/guides/deferred
  */
 export async function podcastListPageLoader() {
-  console.warn('podcastListPageLoader');
-  const podcastsPromise = getTopPodcastsData();
-  console.warn('podcastListPageLoader', podcastsPromise);
+  const podcasts = getTopPodcastsData();
 
-  return defer({ podcastsPromise });
+  return defer({ podcasts });
 }
 
 /**
@@ -33,9 +32,8 @@ export async function podcastListPageLoader() {
  */
 export default function PodcastListPage() {
   const data = useLoaderData() as {
-    podcastsPromise: Promise<Array<TopPodcastsFeedEntry>>;
+    podcasts: Promise<Array<TopPodcastsFeedEntry>>;
   };
-  console.warn('INIT', data);
   const { state } = useNavigation();
   const [search, setSearch] = useState('');
 
@@ -54,12 +52,9 @@ export default function PodcastListPage() {
 
   return (
     <main className="podcast-list-page">
-      <span>{state}</span>
-      <span>{JSON.stringify(data)}</span>
-      <span>{JSON.stringify(typeof data)}</span>
       <Suspense fallback={<p>Loading top podcasts...</p>}>
-        {data?.podcastsPromise ? (
-          <Await resolve={data.podcastsPromise} errorElement={<p>Could not load podcasts 😬</p>}>
+        {data && data.podcasts ? (
+          <Await resolve={data.podcasts} errorElement={<p>Could not load podcasts 😬</p>}>
             {(podcasts) => {
               const visiblePodcasts = filterPodcasts(podcasts, search);
 
@@ -78,7 +73,7 @@ export default function PodcastListPage() {
                   </article>
                   {/* TOP PODCASTS LIST */}
                   <article>
-                    {visiblePodcasts?.length > 0 ? (
+                    {visiblePodcasts.length > 0 ? (
                       <ul>
                         {visiblePodcasts.map((podcast) => (
                           <li key={podcast.id.attributes['im:id']}>
@@ -95,7 +90,7 @@ export default function PodcastListPage() {
                         ))}
                       </ul>
                     ) : (
-                      <span>No podcasts found. 2</span>
+                      <span>No podcasts found.</span>
                     )}
                   </article>
                 </Fragment>
@@ -103,9 +98,7 @@ export default function PodcastListPage() {
             }}
           </Await>
         ) : (
-          <span>
-            No podcasts found. 1<>{JSON.stringify(data)}</>
-          </span>
+          <span>No podcasts found.</span>
         )}
       </Suspense>
     </main>

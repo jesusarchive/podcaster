@@ -1,21 +1,11 @@
-import { prettyDOM, render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import React from 'react';
-import {
-  createBrowserRouter,
-  createRoutesFromElements,
-  Outlet,
-  Route,
-  RouterProvider,
-  useLoaderData,
-  useLocation
-} from 'react-router-dom';
+import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
 
-import { routesConfig } from '@/routes';
 import topPodcastsResponseMock from '@/services/podcast/__mocks__/top-podcasts-response-mock.json';
-import { createDeferred, getWindow } from '@/utils/testing';
 
+import PodcastListPage from '..';
 import { filterPodcasts } from '../helpers';
-import PodcastListPage from '../podcast-list-page';
 
 describe('<PodcastListPage />', () => {
   beforeAll(() => {
@@ -26,181 +16,101 @@ describe('<PodcastListPage />', () => {
     );
   });
 
-  it('renders podcast list page', async () => {
-    const router = createBrowserRouter(routesConfig, {
-      window: getWindow('/'),
-      hydrationData: {
-        loaderData: {
-          podcastPromise: []
-        }
-      }
-    });
-
-    const { container } = render(<RouterProvider router={router} />);
-
-    expect(container).toBeTruthy();
-  });
-
-  it('should filter podcasts', () => {
-    const podcasts = topPodcastsResponseMock.feed.entry;
-    const result = filterPodcasts(podcasts, 'counterclock');
-    expect(result).toEqual([podcasts[0]]);
-  });
-
-  it('should return all podcasts', () => {
-    const podcasts = topPodcastsResponseMock.feed.entry;
-    const result = filterPodcasts(podcasts, '');
-    expect(result).toEqual(podcasts);
-  });
-
-  it('renders', () => {
-    window.__staticRouterHydrationData = {
-      loaderData: { hello: 'world' }
-    };
-
-    const router = createBrowserRouter(createRoutesFromElements(<Route path="/" element={<PodcastListPage />} />));
-
-    render(<RouterProvider router={router} />);
-    expect(router).toBeTruthy();
-  });
-
-  it('new podcast list page test', async () => {
-    const dfd = createDeferred();
-
+  it('render with loader data', () => {
     window.__staticRouterHydrationData = {
       loaderData: {
         '0': {
-          podcastPromise: () => dfd.promise
+          podcasts: topPodcastsResponseMock.feed.entry
         }
       }
     };
     const router = createBrowserRouter(
-      createRoutesFromElements(<Route path="/" element={<PodcastListPage />}></Route>),
-      {
-        window: getWindow('/')
-      }
+      createRoutesFromElements(<Route path="/" element={<PodcastListPage />}></Route>)
     );
-    const { container } = render(<RouterProvider router={router} />);
-    await dfd.resolve(topPodcastsResponseMock.feed.entry);
-    // await waitFor(() => screen.getByText('TEST PODCASTS'));
 
+    const { container } = render(<RouterProvider router={router} />);
     expect(container).toBeTruthy();
-    expect(container).toMatchSnapshot();
   });
 
-  it('new podcast list page test2', async () => {
-    const dfd = createDeferred();
-
+  it('render with loader data podcasts null', () => {
     window.__staticRouterHydrationData = {
       loaderData: {
         '0': {
-          test: 'test',
-          test2: () => dfd.promise
-          // podcastPromise: topPodcastsResponseMock.feed.entry
+          podcasts: null
         }
       }
     };
     const router = createBrowserRouter(
-      createRoutesFromElements(<Route path="/" element={<PodcastListPage />}></Route>),
-      {
-        window: getWindow('/')
-      }
+      createRoutesFromElements(<Route path="/" element={<PodcastListPage />}></Route>)
     );
-    const { container } = render(<RouterProvider router={router} />);
-    await dfd.resolve('test2');
-    // await dfd.resolve(topPodcastsResponseMock.feed.entry);
-    await waitFor(async () => await dfd.resolve('test2'));
 
+    const { container } = render(<RouterProvider router={router} />);
     expect(container).toBeTruthy();
-    expect(container).toMatchSnapshot();
   });
 
-  it('new podcast list page test3', async () => {
-    const dfd = createDeferred();
-
+  it('render with loader data podcasts empty array', () => {
     window.__staticRouterHydrationData = {
       loaderData: {
         '0': {
-          test: 'test',
-          test2: () => dfd.promise
-          // podcastPromise: topPodcastsResponseMock.feed.entry
+          podcasts: []
         }
       }
     };
     const router = createBrowserRouter(
-      createRoutesFromElements(<Route path="/" element={<PodcastListPage />}></Route>),
-      {
-        window: getWindow('/')
-      }
+      createRoutesFromElements(<Route path="/" element={<PodcastListPage />}></Route>)
     );
-    const { container } = render(<RouterProvider router={router} />);
-    await dfd.resolve('test2');
-    // await dfd.resolve(topPodcastsResponseMock.feed.entry);
-    await waitFor(async () => await dfd.resolve('test2'));
 
+    const { container } = render(<RouterProvider router={router} />);
     expect(container).toBeTruthy();
-    expect(container).toMatchSnapshot();
   });
 
-  // it('new new podcast list page test', async () => {
-  //   const dfd = createDeferred();
+  it('render with loader data search changet', () => {
+    window.__staticRouterHydrationData = {
+      loaderData: {
+        '0': {
+          podcasts: topPodcastsResponseMock.feed.entry
+        }
+      }
+    };
+    const router = createBrowserRouter(
+      createRoutesFromElements(<Route path="/" element={<PodcastListPage />}></Route>)
+    );
 
-  //   const router = createBrowserRouter([
-  //     {
-  //       path: '/',
-  //       element: <PodcastListPage />,
-  //       loader: () => ({ podcastPromise: () => dfd.promise })
-  //     }
-  //   ]);
+    const { container, getByText } = render(<RouterProvider router={router} />);
 
-  //   const { container } = render(<RouterProvider router={router} />);
-  //   await dfd.resolve(topPodcastsResponseMock.feed.entry);
-  //   // await waitFor(() => screen.getByText('TEST PODCASTS'));
-  //   expect(container).toBeTruthy();
-  //   expect(container).toMatchSnapshot();
-  // });
+    const input = container.querySelector('input');
+    fireEvent.change(input, { target: { value: 'CounterClock' } });
 
-  it('renders fallbackElement within router contexts', async () => {
-    const fooDefer = createDeferred();
+    expect(getByText('CounterClock')).toBeInTheDocument();
+  });
+
+  it('render with loader data test link prevent default on navigation state loading', () => {
+    window.__staticRouterHydrationData = {
+      loaderData: {
+        '0': {
+          podcasts: topPodcastsResponseMock.feed.entry
+        }
+      }
+    };
     const router = createBrowserRouter(
       createRoutesFromElements(
-        <Route path="/" element={<Outlet />}>
-          <Route path="foo" loader={() => fooDefer.promise} element={<Foo />} />
+        <Route path="/" element={<PodcastListPage />}>
+          <Route path="/podcast/:id" element={<div />} loader={() => 'test'}></Route>
         </Route>
-      ),
-      { window: getWindow('/foo') }
+      )
     );
-    const { container } = render(<RouterProvider router={router} fallbackElement={<FallbackElement />} />);
 
-    function FallbackElement() {
-      const location = useLocation();
+    const { container } = render(<RouterProvider router={router} />);
 
-      return <p>Loading{location.pathname}</p>;
-    }
+    const link = container.querySelector('a');
+    fireEvent.click(link);
+    fireEvent.click(link);
 
-    function Foo() {
-      const data = useLoaderData() as { message: string };
+    expect(container).toBeTruthy();
+  });
 
-      return <h1>Foo:{data?.message}</h1>;
-    }
-
-    function getHtml(container: HTMLElement) {
-      return prettyDOM(container, undefined, {
-        highlight: false,
-        theme: {
-          comment: null,
-          content: null,
-          prop: null,
-          tag: null,
-          value: null
-        }
-      });
-    }
-
-    expect(getHtml(container)).toMatchSnapshot();
-
-    fooDefer.resolve({ message: 'From Foo Loader' });
-    await waitFor(() => screen.getByText('Foo:From Foo Loader'));
-    expect(getHtml(container)).toMatchSnapshot();
+  it('filter podcasts helper should return empty array', () => {
+    const results = filterPodcasts(null, 'not found');
+    expect(results).toEqual([]);
   });
 });

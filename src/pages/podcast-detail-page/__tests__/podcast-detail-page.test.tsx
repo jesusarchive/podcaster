@@ -4,7 +4,6 @@ import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } 
 
 import podcastLookupResponseMockfrom from '@/services/podcast/__mocks__/podcast-lookup-response-mock.json';
 import topPodcastsResponseMock from '@/services/podcast/__mocks__/top-podcasts-response-mock.json';
-import { getWindow } from '@/utils/testing';
 
 import PodcastDetailPage, { podcastDetailPageLoader } from '..';
 
@@ -18,16 +17,13 @@ describe('<PodcastDetailPage />', () => {
   });
 
   it('should call podcastDetailPageLoader', async () => {
-    const router = createBrowserRouter(
-      [
-        {
-          path: '/',
-          element: <PodcastDetailPage />,
-          loader: podcastDetailPageLoader
-        }
-      ],
-      { window: getWindow('/') }
-    );
+    const router = createBrowserRouter([
+      {
+        path: '/',
+        element: <PodcastDetailPage />,
+        loader: podcastDetailPageLoader
+      }
+    ]);
 
     render(<RouterProvider router={router} />);
     expect(router).toBeTruthy();
@@ -43,10 +39,7 @@ describe('<PodcastDetailPage />', () => {
       }
     };
     const router = createBrowserRouter(
-      createRoutesFromElements(<Route path="/" element={<PodcastDetailPage />}></Route>),
-      {
-        window: getWindow('/')
-      }
+      createRoutesFromElements(<Route path="/" element={<PodcastDetailPage />}></Route>)
     );
 
     const { container } = render(<RouterProvider router={router} />);
@@ -63,10 +56,7 @@ describe('<PodcastDetailPage />', () => {
       }
     };
     const router = createBrowserRouter(
-      createRoutesFromElements(<Route path="/" element={<PodcastDetailPage />}></Route>),
-      {
-        window: getWindow('/')
-      }
+      createRoutesFromElements(<Route path="/" element={<PodcastDetailPage />}></Route>)
     );
 
     const { container } = render(<RouterProvider router={router} />);
@@ -83,10 +73,7 @@ describe('<PodcastDetailPage />', () => {
       }
     };
     const router = createBrowserRouter(
-      createRoutesFromElements(<Route path="/" element={<PodcastDetailPage />}></Route>),
-      {
-        window: getWindow('/')
-      }
+      createRoutesFromElements(<Route path="/" element={<PodcastDetailPage />}></Route>)
     );
 
     const { container } = render(<RouterProvider router={router} />);
