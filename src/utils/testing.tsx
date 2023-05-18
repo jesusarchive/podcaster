@@ -34,3 +34,29 @@ export function getWindow(initialUrl: string): Window {
 
   return window as unknown as Window;
 }
+
+export function createDeferred() {
+  let resolve: (val?: any) => Promise<void>;
+  let reject: (error?: Error) => Promise<void>;
+  const promise = new Promise((res, rej) => {
+    resolve = async (val: any) => {
+      console.warn('RESOLVE', val);
+      res(val);
+      try {
+        await promise;
+      } catch (e) {}
+    };
+    reject = async (error?: Error) => {
+      rej(error);
+      try {
+        await promise;
+      } catch (e) {}
+    };
+  });
+
+  return {
+    promise,
+    resolve,
+    reject
+  };
+}

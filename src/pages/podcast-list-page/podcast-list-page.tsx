@@ -54,6 +54,9 @@ export default function PodcastListPage() {
 
   return (
     <main className="podcast-list-page">
+      <span>{state}</span>
+      <span>{JSON.stringify(data)}</span>
+      <span>{JSON.stringify(typeof data)}</span>
       <Suspense fallback={<p>Loading top podcasts...</p>}>
         {data?.podcastsPromise ? (
           <Await resolve={data.podcastsPromise} errorElement={<p>Could not load podcasts 😬</p>}>
@@ -62,6 +65,7 @@ export default function PodcastListPage() {
 
               return (
                 <Fragment>
+                  <span>TEST PODCASTS</span>
                   {/* SEARCH BAR */}
                   <article className="search-bar">
                     <Badge>{visiblePodcasts.length}</Badge>
@@ -91,7 +95,7 @@ export default function PodcastListPage() {
                         ))}
                       </ul>
                     ) : (
-                      <span>No podcasts found.</span>
+                      <span>No podcasts found. 2</span>
                     )}
                   </article>
                 </Fragment>
@@ -99,7 +103,9 @@ export default function PodcastListPage() {
             }}
           </Await>
         ) : (
-          <span>No podcasts found.</span>
+          <span>
+            No podcasts found. 1<>{JSON.stringify(data)}</>
+          </span>
         )}
       </Suspense>
     </main>
