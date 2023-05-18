@@ -12,8 +12,7 @@ export default function Header() {
     <header className="header">
       <nav>
         <Link to="/">Podcaster</Link>
-
-        {state === 'loading' && <Loader />}
+        <Loader loading={state === 'loading'} />
       </nav>
     </header>
   );
