@@ -11,8 +11,8 @@ import { linkify } from '@/utils/linkify';
  *
  * Shows podcast information.
  */
-export default function PodcastDetailCard({ podcast }: { podcast: TopPodcastsFeedEntry }) {
-  return Object.values(podcast).length > 0 ? (
+export default function PodcastDetailCard({ podcast = {} as TopPodcastsFeedEntry }: { podcast: TopPodcastsFeedEntry }) {
+  return podcast && Object.values(podcast).length > 0 ? (
     <Card className="podcast-detail-card">
       <div>
         <img src={podcast['im:image'][2].label} alt="logo"></img>

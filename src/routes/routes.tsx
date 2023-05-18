@@ -8,7 +8,7 @@ import NotFoundPage from '@/pages/not-found-page';
 import PodcastDetailPage, { podcastDetailPageLoader } from '@/pages/podcast-detail-page';
 import PodcastList, { podcastListPageLoader } from '@/pages/podcast-list-page';
 
-export default createBrowserRouter([
+export const routesConfig = [
   {
     path: '/',
     element: (
@@ -43,4 +43,6 @@ export default createBrowserRouter([
       }
     ]
   }
-]);
+];
+
+export default createBrowserRouter(routesConfig);

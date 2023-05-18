@@ -19,7 +19,9 @@ import { filterPodcasts } from './helpers';
  * @see https://reactrouter.com/en/main/route/loader
  */
 export async function podcastListPageLoader() {
+  console.warn('podcastListPageLoader');
   const podcastsPromise = getTopPodcastsData();
+  console.warn('podcastListPageLoader', podcastsPromise);
 
   return defer({ podcastsPromise });
 }
@@ -30,7 +32,10 @@ export async function podcastListPageLoader() {
  * Shows a list of top podcasts.
  */
 export default function PodcastListPage() {
-  const { podcastsPromise } = useLoaderData() as { podcastsPromise: Promise<Array<TopPodcastsFeedEntry>> };
+  const data = useLoaderData() as {
+    podcastsPromise: Promise<Array<TopPodcastsFeedEntry>>;
+  };
+  console.warn('INIT', data);
   const { state } = useNavigation();
   const [search, setSearch] = useState('');
 
@@ -50,44 +55,52 @@ export default function PodcastListPage() {
   return (
     <main className="podcast-list-page">
       <Suspense fallback={<p>Loading top podcasts...</p>}>
-        <Await resolve={podcastsPromise} errorElement={<p>Could not load podcasts 😬</p>}>
-          {(podcasts) => {
-            const visiblePodcasts = filterPodcasts(podcasts, search);
+        {data?.podcastsPromise ? (
+          <Await resolve={data.podcastsPromise} errorElement={<p>Could not load podcasts 😬</p>}>
+            {(podcasts) => {
+              const visiblePodcasts = filterPodcasts(podcasts, search);
 
-            return (
-              <Fragment>
-                {/* SEARCH BAR */}
-                <article className="search-bar">
-                  <Badge>{visiblePodcasts.length}</Badge>
-                  <Input placeholder="Filter podcasts..." type="search" value={search} onChange={handleSearchChange} />
-                </article>
-                {/* TOP PODCASTS LIST */}
-                <article>
-                  {visiblePodcasts?.length > 0 ? (
-                    <ul>
-                      {visiblePodcasts.map((podcast) => (
-                        <li key={podcast.id.attributes['im:id']}>
-                          <Link to={`/podcast/${podcast.id.attributes['im:id']}`} onClick={handleLinkClick}>
-                            <Card>
-                              <img src={podcast['im:image'][2].label} alt="logo"></img>
-                              <div>
-                                <h2 title={podcast['im:name'].label.toUpperCase()}>{podcast['im:name'].label}</h2>
-                                <h3 title={podcast['im:artist'].label}>{`by ${podcast['im:artist'].label}`}</h3>
-                              </div>
-                            </Card>
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  ) : (
-                    /* FALLBACK MESSAGE */
-                    <span>No podcasts found.</span>
-                  )}
-                </article>
-              </Fragment>
-            );
-          }}
-        </Await>
+              return (
+                <Fragment>
+                  {/* SEARCH BAR */}
+                  <article className="search-bar">
+                    <Badge>{visiblePodcasts.length}</Badge>
+                    <Input
+                      placeholder="Filter podcasts..."
+                      type="search"
+                      value={search}
+                      onChange={handleSearchChange}
+                    />
+                  </article>
+                  {/* TOP PODCASTS LIST */}
+                  <article>
+                    {visiblePodcasts?.length > 0 ? (
+                      <ul>
+                        {visiblePodcasts.map((podcast) => (
+                          <li key={podcast.id.attributes['im:id']}>
+                            <Link to={`/podcast/${podcast.id.attributes['im:id']}`} onClick={handleLinkClick}>
+                              <Card>
+                                <img src={podcast['im:image'][2].label} alt="logo"></img>
+                                <div>
+                                  <h2 title={podcast['im:name'].label.toUpperCase()}>{podcast['im:name'].label}</h2>
+                                  <h3 title={podcast['im:artist'].label}>{`by ${podcast['im:artist'].label}`}</h3>
+                                </div>
+                              </Card>
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <span>No podcasts found.</span>
+                    )}
+                  </article>
+                </Fragment>
+              );
+            }}
+          </Await>
+        ) : (
+          <span>No podcasts found.</span>
+        )}
       </Suspense>
     </main>
   );

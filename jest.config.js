@@ -5,7 +5,8 @@ module.exports = {
     '!**/*.d.ts',
     '!**/node_modules/**',
     '!<rootDir>/*.config.js',
-    '!<rootDir>/coverage/**'
+    '!<rootDir>/coverage/**',
+    '!src/index.tsx'
   ],
   moduleNameMapper: {
     // Handle CSS imports (with CSS modules)

@@ -1,4 +1,4 @@
-import { makeRequest } from '@/lib/make-request';
+import { makeRequest } from '@/utils/make-request';
 
 import { PodcastLookupResponse, PodcastLookupResult, TopPodcastsFeedEntry, TopPodcastsResponse } from './types';
 
