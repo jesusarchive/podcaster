@@ -1,6 +1,3 @@
-import { render } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
-
 /**
  * Testing utilities
  *
@@ -8,13 +5,13 @@ import { BrowserRouter } from 'react-router-dom';
  */
 
 // Render a component with react-router-dom BrowserRouter wrapper
-export function renderWithRouter(ui, { route = '/' } = {}) {
-  window.history.pushState({}, 'Test page', route);
+// export function renderWithRouter(ui, { route = '/' } = {}) {
+//   window.history.pushState({}, 'Test page', route);
 
-  return {
-    ...render(ui, { wrapper: BrowserRouter })
-  };
-}
+//   return {
+//     ...render(ui, { wrapper: BrowserRouter })
+//   };
+// }
 
 // export function renderWithRouter(element, loader) {
 //   const routes = [

@@ -1,8 +1,10 @@
 import { render } from '@testing-library/react';
 import React from 'react';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
 
 import { routesConfig } from '@/routes';
+import podcastLookupResponseMockfrom from '@/services/podcast/__mocks__/podcast-lookup-response-mock.json';
+import topPodcastsResponseMock from '@/services/podcast/__mocks__/top-podcasts-response-mock.json';
 import { getWindow } from '@/utils/testing';
 
 import EpisodeDetailPage, { episodeDetailPageLoader } from '..';
@@ -53,5 +55,65 @@ describe('<EpisodeDetailPage />', () => {
 
     render(<RouterProvider router={router} />);
     expect(router).toBeTruthy();
+  });
+
+  it('new podcast detail page test', () => {
+    window.__staticRouterHydrationData = {
+      loaderData: {
+        '0': {
+          podcast: topPodcastsResponseMock.feed.entry[0],
+          episode: podcastLookupResponseMockfrom.results.slice(1)[0]
+        }
+      }
+    };
+    const router = createBrowserRouter(
+      createRoutesFromElements(<Route path="/" element={<EpisodeDetailPage />}></Route>),
+      {
+        window: getWindow('/')
+      }
+    );
+
+    const { container } = render(<RouterProvider router={router} />);
+    expect(container).toBeTruthy();
+  });
+
+  it('new episode detail page test podcast null', () => {
+    window.__staticRouterHydrationData = {
+      loaderData: {
+        '0': {
+          podcast: null,
+          episode: []
+        }
+      }
+    };
+    const router = createBrowserRouter(
+      createRoutesFromElements(<Route path="/" element={<EpisodeDetailPage />}></Route>),
+      {
+        window: getWindow('/')
+      }
+    );
+
+    const { container } = render(<RouterProvider router={router} />);
+    expect(container).toBeTruthy();
+  });
+
+  it('new episode detail page test episode null', () => {
+    window.__staticRouterHydrationData = {
+      loaderData: {
+        '0': {
+          podcast: topPodcastsResponseMock.feed.entry[0],
+          episode: null
+        }
+      }
+    };
+    const router = createBrowserRouter(
+      createRoutesFromElements(<Route path="/" element={<EpisodeDetailPage />}></Route>),
+      {
+        window: getWindow('/')
+      }
+    );
+
+    const { container } = render(<RouterProvider router={router} />);
+    expect(container).toBeTruthy();
   });
 });

@@ -52,7 +52,7 @@ export default function PodcastDetailPage() {
           </article>
           {/* PODCAST EPISODES TABLE */}
           <article>
-            {episodes?.length > 0 ? (
+            {Array.isArray(episodes) && episodes.length > 0 ? (
               <>
                 <Card>
                   <h2>Episodes: {episodes.length}</h2>
