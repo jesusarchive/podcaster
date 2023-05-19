@@ -41,3 +41,9 @@
 .podcast-detail-card a {
   color: var(--blue-500);
 }
+
+@media screen and (max-width: 1024px) {
+  .podcast-detail-card {
+    width: 100%;
+  }
+}

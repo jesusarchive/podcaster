@@ -46,3 +46,17 @@
 .podcast-detail-page table a {
   color: var(--blue-500);
 }
+
+@media screen and (max-width: 1024px) {
+  .podcast-detail-page {
+    flex-direction: column;
+  }
+
+  .podcast-detail-page article:nth-child(2) {
+    padding-left: 0;
+  }
+
+  .podcast-detail-page article:nth-child(2) {
+    margin-top: 1.5rem;
+  }
+}

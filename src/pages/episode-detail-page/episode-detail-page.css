@@ -36,3 +36,17 @@
 button {
   color: var(--blue-500);
 }
+
+@media screen and (max-width: 1024px) {
+  .episode-detail-page {
+    flex-direction: column;
+  }
+
+  .episode-detail-page article:nth-child(2) {
+    padding-left: 0;
+  }
+
+  .episode-detail-page article:nth-child(2) {
+    margin-top: 1.5rem;
+  }
+}
