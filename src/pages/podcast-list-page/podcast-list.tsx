@@ -13,16 +13,16 @@ type PodcastListProps = {
 };
 
 export default function PodcastList({ podcasts }: PodcastListProps) {
-  const { state } = useNavigation();
+  const navigation = useNavigation();
   const [search, setSearch] = useState('');
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
   };
 
-  const handleLinkClick = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-    // prevent navigation when loading podcast detail page
-    if (state === 'loading') {
+  const handleLinkClick = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>, to: string) => {
+    // prevent multiple navigation requests for the same podcast
+    if (navigation.state === 'loading' && navigation.location.pathname === to) {
       event.preventDefault();
     }
   };
@@ -42,13 +42,17 @@ export default function PodcastList({ podcasts }: PodcastListProps) {
       <article>
         {visiblePodcasts.length > 0 ? (
           <ul className="podcast-list">
-            {visiblePodcasts.map((podcast) => (
-              <li key={podcast.id.attributes['im:id']}>
-                <Link to={`/podcast/${podcast.id.attributes['im:id']}`} onClick={handleLinkClick}>
-                  <PodcastCard podcast={podcast} />
-                </Link>
-              </li>
-            ))}
+            {visiblePodcasts.map((podcast) => {
+              const to = `/podcast/${podcast.id.attributes['im:id']}`;
+
+              return (
+                <li key={podcast.id.attributes['im:id']}>
+                  <Link to={to} onClick={(event) => handleLinkClick(event, to)}>
+                    <PodcastCard podcast={podcast} />
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         ) : (
           <span>No podcasts found.</span>
