@@ -8,10 +8,7 @@
 export async function makeRequest(input: RequestInfo | URL, init?: RequestInit) {
   const response = await fetch(input, init);
 
-  if (!response.ok) {
-    throw new Error(response.statusText);
-  }
-
+  // ! TODO: handle error trying to parse response to json
   const data = await response.json();
 
   if (data && data.error) {

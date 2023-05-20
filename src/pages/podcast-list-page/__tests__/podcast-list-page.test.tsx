@@ -103,6 +103,7 @@ describe('<PodcastListPage />', () => {
     const { container } = render(<RouterProvider router={router} />);
 
     const link = container.querySelector('a');
+    // ! TODO: review act and user event
     fireEvent.click(link);
     fireEvent.click(link);
 
