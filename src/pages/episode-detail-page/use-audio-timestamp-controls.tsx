@@ -6,7 +6,6 @@ const timestampControlClassName = 'timestamp-control';
 
 // add timestamp control buttons to text
 function addAudioTimestampControls(text: string): string {
-  // TODO: fix regex matching random time strings in description, normally the timestamps come wrapped in parentheses
   const timestampRegex = /(\d{1,2}:)?\d{1,2}:\d{2}/g;
 
   return text.replace(

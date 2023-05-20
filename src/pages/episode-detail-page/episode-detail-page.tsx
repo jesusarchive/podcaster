@@ -1,16 +1,14 @@
 /* eslint-disable jsx-a11y/media-has-caption */
 import './episode-detail-page.css';
 
-import React, { Fragment, useRef } from 'react';
+import React, { Fragment } from 'react';
 import { useLoaderData } from 'react-router-dom';
 
 import PodcastDetailCard from '@/components/shared/podcast-detail-card';
-import Card from '@/components/ui/card';
 import { useDocumentTitle } from '@/hooks/use-document-title';
 import { getPodcastData, getPodcastEpisodeData, PodcastLookupResult, TopPodcastsFeedEntry } from '@/services/podcast';
-import { linkify } from '@/utils/linkify';
 
-import { useAudioTimestampControls } from './use-audio-timestamp-controls';
+import EpisodeListener from './episode-listener';
 
 /**
  * Episode detail page loader
@@ -33,13 +31,10 @@ export async function episodeDetailPageLoader({ params }) {
  * Shows episode information and audio player
  */
 export default function EpisodeDetailPage() {
-  const data = useLoaderData() as {
+  const { podcast, episode } = useLoaderData() as {
     podcast: TopPodcastsFeedEntry;
     episode: PodcastLookupResult;
   };
-  const { podcast, episode } = data;
-  const audioRef = useRef(null);
-  const { addAudioTimestampControls } = useAudioTimestampControls(audioRef);
 
   const documentTitle = episode ? `${episode.trackName} | Podcaster` : 'Podcaster';
 
@@ -49,32 +44,11 @@ export default function EpisodeDetailPage() {
     <main className="episode-detail-page">
       {podcast ? (
         <Fragment>
-          {/* PODCAST DETAIL CARD */}
           <article>
             <PodcastDetailCard podcast={podcast} />
           </article>
-          {/* EPISODE DATA AND AUDIO PLAYER */}
           <article>
-            {episode ? (
-              <Card>
-                <div>
-                  <h2>{episode.trackName}</h2>
-                  <pre
-                    dangerouslySetInnerHTML={{
-                      __html: addAudioTimestampControls(linkify(episode.description))
-                    }}
-                  />
-                </div>
-                <div>
-                  <audio ref={audioRef} controls>
-                    <source src={`${episode.episodeUrl}`} type="audio/mpeg" />
-                    Your browser does not support the audio element.
-                  </audio>
-                </div>
-              </Card>
-            ) : (
-              <div>No episode data</div>
-            )}
+            <EpisodeListener episode={episode} />
           </article>
         </Fragment>
       ) : (
