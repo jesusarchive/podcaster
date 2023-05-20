@@ -2,11 +2,6 @@
   width: 20rem;
 }
 
-.podcast-detail-card div:not(:last-child) {
-  border-bottom: 1px solid #eaeaea;
-  padding-bottom: 1rem;
-}
-
 .podcast-detail-card div:not(:first-child) {
   padding-top: 1rem;
 }
@@ -42,6 +37,7 @@
   color: var(--blue-500);
 }
 
+/* Responsive */
 @media screen and (max-width: 1024px) {
   .podcast-detail-card {
     width: 100%;

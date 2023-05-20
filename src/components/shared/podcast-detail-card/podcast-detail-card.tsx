@@ -13,7 +13,7 @@ type PodcastDetailCardProps = {
 /**
  * Podcast detail card component
  *
- * Shows podcast information.
+ * Shows podcast detailed information.
  */
 export default function PodcastDetailCard({ podcast }: PodcastDetailCardProps) {
   return podcast && Object.values(podcast).length > 0 ? (
