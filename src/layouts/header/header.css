@@ -11,10 +11,10 @@
   align-items: center;
   background-color: var(--white);
   border-bottom: 2px solid var(--gray-200);
+  padding-left: 2rem;
 }
 
 .header nav a {
   color: var(--blue-500);
-  padding: 2rem;
   font-size: 2rem;
 }
