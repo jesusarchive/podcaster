@@ -75,4 +75,9 @@
   .episodes-table td:not(:first-child) {
     width: unset;
   }
+
+  .episodes-table th:last-child,
+  .episodes-table td:last-child {
+    padding-right: 0.6rem;
+  }
 }
