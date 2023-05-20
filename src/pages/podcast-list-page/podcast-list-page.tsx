@@ -63,12 +63,14 @@ export default function PodcastListPage() {
                   {/* SEARCH BAR */}
                   <article className="search-bar">
                     <Badge>{visiblePodcasts.length}</Badge>
-                    <Input
-                      placeholder="Filter podcasts..."
-                      type="search"
-                      value={search}
-                      onChange={handleSearchChange}
-                    />
+                    <form role="search">
+                      <Input
+                        placeholder="Filter podcasts..."
+                        type="search"
+                        value={search}
+                        onChange={handleSearchChange}
+                      />
+                    </form>
                   </article>
                   {/* TOP PODCASTS LIST */}
                   <article>

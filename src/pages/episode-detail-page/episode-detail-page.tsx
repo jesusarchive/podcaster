@@ -41,7 +41,9 @@ export default function EpisodeDetailPage() {
   const audioRef = useRef(null);
   const { addAudioTimestampControls } = useAudioTimestampControls(audioRef);
 
-  useDocumentTitle(`${episode.trackName} | Podcaster`);
+  const documentTitle = episode ? `${episode.trackName} | Podcaster` : 'Podcaster';
+
+  useDocumentTitle(documentTitle);
 
   return (
     <main className="episode-detail-page">
@@ -53,22 +55,26 @@ export default function EpisodeDetailPage() {
           </article>
           {/* EPISODE DATA AND AUDIO PLAYER */}
           <article>
-            <Card>
-              <div>
-                <h2>{episode.trackName}</h2>
-                <pre
-                  dangerouslySetInnerHTML={{
-                    __html: addAudioTimestampControls(linkify(episode.description))
-                  }}
-                />
-              </div>
-              <div>
-                <audio ref={audioRef} controls>
-                  <source src={`${episode.episodeUrl}`} type="audio/mpeg" />
-                  Your browser does not support the audio element.
-                </audio>
-              </div>
-            </Card>
+            {episode ? (
+              <Card>
+                <div>
+                  <h2>{episode.trackName}</h2>
+                  <pre
+                    dangerouslySetInnerHTML={{
+                      __html: addAudioTimestampControls(linkify(episode.description))
+                    }}
+                  />
+                </div>
+                <div>
+                  <audio ref={audioRef} controls>
+                    <source src={`${episode.episodeUrl}`} type="audio/mpeg" />
+                    Your browser does not support the audio element.
+                  </audio>
+                </div>
+              </Card>
+            ) : (
+              <div>No episode data</div>
+            )}
           </article>
         </Fragment>
       ) : (
