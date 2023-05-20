@@ -69,4 +69,23 @@ describe('podcast service', () => {
     const episode = await getPodcastEpisodeData(podcastId, episodeId);
     expect(episode.trackId).toEqual(Number(episodeId));
   });
+
+  test('clean local stoage when it is older than a day', async () => {
+    global.fetch = jest.fn().mockImplementation(() => {
+      return new Promise((resolve) => {
+        resolve({
+          json: () => {
+            return topPodcastsResponseMock;
+          }
+        });
+      });
+    });
+
+    const oldDate = new Date();
+    oldDate.setDate(oldDate.getDate() - 2);
+    localStorage.setItem('local-storage-created-at', String(oldDate));
+
+    await getTopPodcastsData();
+    expect(localStorage.getItem('local-storage-created-at')).not.toEqual(oldDate);
+  });
 });
