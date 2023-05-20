@@ -17,3 +17,5 @@ Minimal podcast listening app using React TypeScript and Webpack
 `npm run test:watch` - Run the tests in watch mode
 
 `npm run test:coverage` - Run the tests and generate coverage report
+
+`npm run test:update` - Run the tests and update the snapshots
