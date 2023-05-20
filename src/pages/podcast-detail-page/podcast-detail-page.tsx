@@ -17,11 +17,9 @@ import { formatDate, millisToHms } from '@/utils/date';
  * @see https://reactrouter.com/en/main/route/loader
  */
 export async function podcastDetailPageLoader({ params }) {
-  console.warn('podcastDetailPageLoader', params);
   const { podcastId } = params;
   const podcast = await getPodcastData(podcastId);
   const episodes = await getPodcastEpisodesData(podcastId);
-  console.warn('podcastDetailPageLoader', podcast, episodes);
 
   return { podcast, episodes };
 }
@@ -36,7 +34,6 @@ export default function PodcastDetailPage() {
     podcast: TopPodcastsFeedEntry;
     episodes: Array<PodcastLookupResult>;
   };
-  console.warn('INIT', data);
   const { podcast, episodes } = data;
   const documentTitle = podcast ? `${podcast['im:name'].label} | Podcaster` : 'Podcaster';
 

@@ -60,7 +60,6 @@ export default function PodcastListPage() {
 
               return (
                 <Fragment>
-                  <span>TEST PODCASTS</span>
                   {/* SEARCH BAR */}
                   <article className="search-bar">
                     <Badge>{visiblePodcasts.length}</Badge>
