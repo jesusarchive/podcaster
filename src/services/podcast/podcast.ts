@@ -77,10 +77,10 @@ export async function getTopPodcastsDataRaw(): Promise<TopPodcastsResponse> {
   return data;
 }
 
-// get podcast episodes data from local storage or api
+// get podcast lookup data from local storage or api
 export async function getPodcastLookupDataRaw(id: number): Promise<PodcastLookupResponse> {
   handleLocalStorageCleanup();
-  const localStorageKey = `podcast-episodes-response-${id}`;
+  const localStorageKey = `podcast-lookup-response-${id}`;
   const rawPodcastLookupResponsesData = localStorage.getItem(localStorageKey);
   const parsedPodcastLookupResponsesData = rawPodcastLookupResponsesData && JSON.parse(rawPodcastLookupResponsesData);
   const podcastLookupData = parsedPodcastLookupResponsesData;
