@@ -72,6 +72,7 @@ export async function getTopPodcastsDataRaw(): Promise<TopPodcastsResponse> {
   // if no local storage data, set local storage data
   if (!rawTopPodcastsData) {
     localStorage.setItem(localStorageKey, JSON.stringify(data));
+    console.log('STORE');
   }
 
   return data;
