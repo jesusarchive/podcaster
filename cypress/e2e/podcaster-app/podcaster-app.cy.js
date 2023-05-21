@@ -1,3 +1,4 @@
+// PODCAST LIST PAGE
 describe('podcast list page', () => {
   beforeEach(() => {
     cy.intercept(
@@ -32,6 +33,7 @@ describe('podcast list page', () => {
   });
 });
 
+// PODCAST DETAIL PAGE
 describe('podcast detail page', () => {
   beforeEach(() => {
     const podcastId = '1545953110';
@@ -69,6 +71,7 @@ describe('podcast detail page', () => {
   });
 });
 
+// EPISODE DETAIL PAGE
 describe('episode detail page', () => {
   beforeEach(() => {
     const podcastId = '1545953110';
