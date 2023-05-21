@@ -18,7 +18,7 @@ export function allOrigins(url: string): string {
 // get top podcasts
 export async function getTopPodcasts(limit = TOP_PODCASTS_LIMIT): Promise<TopPodcastsResponse> {
   const url = `${API_URL}/us/rss/toppodcasts/limit=${limit}/json`;
-  const data = await makeRequest(url);
+  const data = await makeRequest(allOrigins(url));
 
   return data;
 }
@@ -72,6 +72,7 @@ export async function getTopPodcastsDataRaw(): Promise<TopPodcastsResponse> {
   // if no local storage data, set local storage data
   if (!rawTopPodcastsData) {
     localStorage.setItem(localStorageKey, JSON.stringify(data));
+    console.log('STORE');
   }
 
   return data;

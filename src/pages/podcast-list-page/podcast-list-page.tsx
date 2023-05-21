@@ -36,7 +36,7 @@ export default function PodcastListPage() {
 
   return (
     <main className="podcast-list-page">
-      <Suspense fallback={<p>Loading top podcasts...</p>}>
+      <Suspense fallback={<p className="loading">Loading top podcasts...</p>}>
         {podcasts ? (
           <Await resolve={podcasts} errorElement={<p>Could not load podcasts 😬</p>}>
             {(podcasts) => <PodcastList podcasts={podcasts} />}
