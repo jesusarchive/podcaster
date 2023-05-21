@@ -18,7 +18,7 @@ export function allOrigins(url: string): string {
 // get top podcasts
 export async function getTopPodcasts(limit = TOP_PODCASTS_LIMIT): Promise<TopPodcastsResponse> {
   const url = `${API_URL}/us/rss/toppodcasts/limit=${limit}/json`;
-  const data = await makeRequest(allOrigins(url));
+  const data = await makeRequest(url);
 
   return data;
 }

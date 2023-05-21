@@ -11,11 +11,12 @@ module.exports = {
     'plugin:import/recommended',
     'plugin:jsx-a11y/recommended',
     'plugin:@typescript-eslint/recommended',
+    'plugin:cypress/recommended',
     // This disables the formatting rules in ESLint that Prettier is going to be responsible for handling.
     // Make sure it's always the last config, so it gets the chance to override other configs.
     'eslint-config-prettier'
   ],
-  plugins: ['simple-import-sort', 'import', 'unused-imports'],
+  plugins: ['simple-import-sort', 'import', 'unused-imports', 'cypress'],
   settings: {
     react: {
       // Tells eslint-plugin-react to automatically detect the version of React to use.
