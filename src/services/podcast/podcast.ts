@@ -72,7 +72,6 @@ export async function getTopPodcastsDataRaw(): Promise<TopPodcastsResponse> {
   // if no local storage data, set local storage data
   if (!rawTopPodcastsData) {
     localStorage.setItem(localStorageKey, JSON.stringify(data));
-    console.log('STORE');
   }
 
   return data;
@@ -129,7 +128,7 @@ export async function getPodcastEpisodesData(id: string): Promise<Array<PodcastL
 // get podcast lookup episode
 export async function getPodcastEpisodeData(podcastId: string, episodeId: string): Promise<PodcastLookupResult> {
   const episodes = await getPodcastEpisodesData(podcastId);
-  const episode = episodes?.find?.((el) => el.trackId === Number(episodeId));
+  const episode = episodes.find((el) => el.trackId === Number(episodeId));
 
   return episode;
 }

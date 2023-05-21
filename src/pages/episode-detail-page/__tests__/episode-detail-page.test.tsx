@@ -16,6 +16,10 @@ describe('<EpisodeDetailPage />', () => {
     );
   });
 
+  afterAll(() => {
+    jest.clearAllMocks();
+  });
+
   it('should call episodeDetailPageLoader', async () => {
     const router = createBrowserRouter([
       {

@@ -7,14 +7,6 @@ import { getWindow } from '@/utils/testing';
 import router, { routesConfig } from '..';
 
 describe('<Router />', () => {
-  beforeAll(() => {
-    (global.fetch as jest.Mock) = jest.fn(() =>
-      Promise.resolve({
-        json: () => Promise.resolve({})
-      })
-    );
-  });
-
   it('should load index route', () => {
     window.__staticRouterHydrationData = {
       loaderData: {

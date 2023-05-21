@@ -3,6 +3,10 @@ import topPodcastsResponseMock from '../__mocks__/top-podcasts-response-mock.jso
 import { getPodcastData, getPodcastEpisodeData, getPodcastEpisodesData, getTopPodcastsData } from '../podcast';
 
 describe('podcast service', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('get top podcasts data', async () => {
     global.fetch = jest.fn().mockImplementation(() => {
       return new Promise((resolve) => {
@@ -87,5 +91,23 @@ describe('podcast service', () => {
 
     await getTopPodcastsData();
     expect(localStorage.getItem('local-storage-created-at')).not.toEqual(oldDate);
+  });
+
+  it('should return default values', async () => {
+    localStorage.clear();
+    global.fetch = jest.fn().mockImplementation(() => {
+      return new Promise((resolve) => {
+        resolve({
+          json: () => {
+            return null;
+          }
+        });
+      });
+    });
+
+    await getTopPodcastsData();
+    await getPodcastData('123');
+    await getPodcastEpisodesData('123');
+    await getPodcastEpisodeData('123', '123');
   });
 });

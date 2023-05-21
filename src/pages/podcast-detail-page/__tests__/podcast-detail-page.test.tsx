@@ -16,6 +16,10 @@ describe('<PodcastDetailPage />', () => {
     );
   });
 
+  afterAll(() => {
+    jest.clearAllMocks();
+  });
+
   it('should call podcastDetailPageLoader', async () => {
     const router = createBrowserRouter([
       {
