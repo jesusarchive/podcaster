@@ -17,7 +17,8 @@ type PodcastDetailCardProps = {
  * Shows podcast detailed information.
  */
 function PodcastDetailCard({ podcast }: PodcastDetailCardProps) {
-  const podcastDetailUrl = `/podcast/${podcast.id.attributes['im:id']}`;
+  const podcastDetailUrl = podcast ? `/podcast/${podcast.id.attributes['im:id']}` : '';
+
   const handleClick = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     // Prevent navigation if the user is already in the same page
     if (event.currentTarget.pathname === window.location.pathname) {
