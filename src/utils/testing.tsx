@@ -8,3 +8,9 @@ export function renderWithRouter(ui, { route = '/' } = {}) {
     ...render(ui, { wrapper: BrowserRouter })
   };
 }
+
+export function getWindow(initialUrl: string): Window {
+  window.history.replaceState(null, '', initialUrl);
+
+  return window as unknown as Window;
+}
