@@ -12,7 +12,8 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "test:update": "jest --updateSnapshot",
-    "cy": "cypress open"
+    "cypress": "cypress open",
+    "cypress:run": "cypress run"
   },
   "author": "Jesús Busto Romero",
   "license": "ISC",
