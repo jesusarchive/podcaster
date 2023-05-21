@@ -12,7 +12,7 @@ const TestComponent = ({ title }: { title: string }) => {
 };
 
 describe('useDocumentTitle', () => {
-  test('should set document title', () => {
+  it('should set document title', () => {
     render(<TestComponent title="test title" />);
     expect(document.title).toEqual('test title');
   });

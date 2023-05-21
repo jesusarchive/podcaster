@@ -3,7 +3,7 @@ import topPodcastsResponseMock from '../__mocks__/top-podcasts-response-mock.jso
 import { getPodcastData, getPodcastEpisodeData, getPodcastEpisodesData, getTopPodcastsData } from '../podcast';
 
 describe('podcast service', () => {
-  test('get top podcasts data', async () => {
+  it('get top podcasts data', async () => {
     global.fetch = jest.fn().mockImplementation(() => {
       return new Promise((resolve) => {
         resolve({
@@ -18,7 +18,7 @@ describe('podcast service', () => {
     expect(data).toEqual(topPodcastsResponseMock.feed.entry);
   });
 
-  test('get podcast data', async () => {
+  it('get podcast data', async () => {
     const podcastId = '1489482036';
 
     global.fetch = jest.fn().mockImplementation(() => {
@@ -35,7 +35,7 @@ describe('podcast service', () => {
     expect(podcast.id.attributes['im:id']).toEqual(podcastId);
   });
 
-  test('get podcast episodes data', async () => {
+  it('get podcast episodes data', async () => {
     const podcastId = '1685691481';
 
     global.fetch = jest.fn().mockImplementation(() => {
@@ -52,7 +52,7 @@ describe('podcast service', () => {
     expect(episodes.length).toBeTruthy();
   });
 
-  test('get podcast episode data', async () => {
+  it('get podcast episode data', async () => {
     const podcastId = '1685691481';
     const episodeId = '1000613106312';
 
@@ -70,7 +70,7 @@ describe('podcast service', () => {
     expect(episode.trackId).toEqual(Number(episodeId));
   });
 
-  test('clean local stoage when it is older than a day', async () => {
+  it('clean local stoage when it is older than a day', async () => {
     global.fetch = jest.fn().mockImplementation(() => {
       return new Promise((resolve) => {
         resolve({

@@ -63,7 +63,7 @@ describe('<PodcastDetailPage />', () => {
     expect(container).toBeTruthy();
   });
 
-  it('render with loader data episdoes value empty array', () => {
+  it('render with loader data episodes value empty array', () => {
     window.__staticRouterHydrationData = {
       loaderData: {
         '0': {
