@@ -12,6 +12,7 @@ Minimal podcast listening app using React, TypeScript and Webpack
 ├── src
 │   ├── assets
 │   ├── components
+│   ├── context
 │   ├── hooks
 │   ├── layouts
 │   ├── pages
