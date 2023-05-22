@@ -6,7 +6,7 @@
   "scripts": {
     "start": "npm run dev",
     "dev": "webpack serve --config webpack.dev.js",
-    "build": "webpack --config webpack.prod.js",
+    "build": "rimraf dist && webpack --config webpack.prod.js",
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "eslint . --ext .ts,.tsx --fix",
     "test": "jest",
@@ -58,6 +58,7 @@
     "jest-fetch-mock": "^3.0.3",
     "mini-css-extract-plugin": "^2.7.5",
     "prettier": "^2.8.8",
+    "rimraf": "^5.0.1",
     "start-server-and-test": "^2.0.0",
     "style-loader": "^3.3.2",
     "terser-webpack-plugin": "^5.3.9",
