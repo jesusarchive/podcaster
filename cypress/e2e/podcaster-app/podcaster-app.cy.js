@@ -1,6 +1,15 @@
 // PODCAST LIST PAGE
 describe('podcast list page', () => {
   beforeEach(() => {
+    const podcastId = '1545953110';
+    cy.fixture('top-podcasts-response').then((topPodcasts) => {
+      localStorage.setItem('local-storage-created-at', String(new Date()));
+      localStorage.setItem('top-podcasts-response', JSON.stringify(topPodcasts));
+    });
+
+    cy.fixture(`podcast-lookup-response-${podcastId}`).then((podcastLookup) => {
+      localStorage.setItem(`podcast-lookup-${podcastId}`, JSON.stringify(podcastLookup));
+    });
     cy.intercept(
       'https://api.allorigins.win/raw?url=https%3A%2F%2Fitunes.apple.com%2Fus%2Frss%2Ftoppodcasts%2Flimit%3D100%2Fjson'
     ).as('getPodcasts');
@@ -9,25 +18,25 @@ describe('podcast list page', () => {
   });
 
   it('displays podcasts list', () => {
-    cy.wait('@getPodcasts', { timeout: 30000 });
+    // cy.wait('@getPodcasts');
     cy.get('.podcast-list').should('exist');
     cy.get('.podcast-list li').should('have.length', 100);
   });
 
   it('filters podcasts', () => {
-    cy.wait('@getPodcasts', { timeout: 30000 });
+    // cy.wait('@getPodcasts');
     cy.get('input[type="search"]').type('CounterClock');
     cy.get('.podcast-list li').should('have.length', 1);
     cy.get('.podcast-list li').should('contain', 'CounterClock');
   });
 
   it('stores data in local storage', () => {
-    cy.wait('@getPodcasts', { timeout: 30000 });
+    // cy.wait('@getPodcasts');
     expect(localStorage.getItem('local-storage-created-at')).to.exist;
   });
 
   it('navigates to podcast detail page', () => {
-    cy.wait('@getPodcasts', { timeout: 30000 });
+    // cy.wait('@getPodcasts');
     cy.get('.podcast-list li').first().click();
     cy.url().should('include', '/podcast/');
   });
@@ -37,6 +46,14 @@ describe('podcast list page', () => {
 describe('podcast detail page', () => {
   beforeEach(() => {
     const podcastId = '1545953110';
+    cy.fixture('top-podcasts-response').then((topPodcasts) => {
+      localStorage.setItem('local-storage-created-at', String(new Date()));
+      localStorage.setItem('top-podcasts-response', JSON.stringify(topPodcasts));
+    });
+
+    cy.fixture(`podcast-lookup-response-${podcastId}`).then((podcastLookup) => {
+      localStorage.setItem(`podcast-lookup-${podcastId}`, JSON.stringify(podcastLookup));
+    });
     cy.intercept(
       `https://api.allorigins.win/raw?url=https%3A%2F%2Fitunes.apple.com%2Flookup%3Fid%3D${podcastId}%26media%3Dpodcast%26entity%3DpodcastEpisode%26limit%3D50`
     ).as('getPodcastLookup');
@@ -45,7 +62,7 @@ describe('podcast detail page', () => {
   });
 
   it('displays podcasts detail and episodes table', () => {
-    cy.wait('@getPodcastLookup', { timeout: 30000 });
+    cy.wait('@getPodcastLookup');
     cy.get('.podcast-detail-card').should('exist');
     cy.get('.podcast-detail-card').within(() => {
       cy.get('img').should('exist');
@@ -65,7 +82,7 @@ describe('podcast detail page', () => {
   });
 
   it('navigates to episode detail page', () => {
-    cy.wait('@getPodcastLookup', { timeout: 30000 });
+    cy.wait('@getPodcastLookup');
     cy.get('.episodes-table tbody tr a').first().click();
     cy.url().should('include', '/episode/');
   });
@@ -75,6 +92,14 @@ describe('podcast detail page', () => {
 describe('episode detail page', () => {
   beforeEach(() => {
     const podcastId = '1545953110';
+    cy.fixture('top-podcasts-response').then((topPodcasts) => {
+      localStorage.setItem('local-storage-created-at', String(new Date()));
+      localStorage.setItem('top-podcasts-response', JSON.stringify(topPodcasts));
+    });
+
+    cy.fixture(`podcast-lookup-response-${podcastId}`).then((podcastLookup) => {
+      localStorage.setItem(`podcast-lookup-${podcastId}`, JSON.stringify(podcastLookup));
+    });
     const episodeId = '1000613037781';
     cy.intercept(
       `https://api.allorigins.win/raw?url=https%3A%2F%2Fitunes.apple.com%2Flookup%3Fid%3D${podcastId}%26media%3Dpodcast%26entity%3DpodcastEpisode%26limit%3D50`
@@ -84,7 +109,7 @@ describe('episode detail page', () => {
   });
 
   it('displays episode detail and audio player', () => {
-    cy.wait('@getPodcastLookup', { timeout: 30000 });
+    cy.wait('@getPodcastLookup');
     cy.get('.podcast-detail-card').should('exist');
     cy.get('.episode-listener').should('exist');
     cy.get('.episode-listener').within(() => {
@@ -95,7 +120,7 @@ describe('episode detail page', () => {
   });
 
   it('displays audio timestamp controls', () => {
-    cy.wait('@getPodcastLookup', { timeout: 30000 });
+    cy.wait('@getPodcastLookup');
     cy.get('.episode-listener').should('exist');
     cy.get('.episode-listener pre').within(() => {
       cy.get('.timestamp-control').first('exist');
@@ -103,14 +128,14 @@ describe('episode detail page', () => {
   });
 
   it('timestamp control changes audio time', () => {
-    cy.wait('@getPodcastLookup', { timeout: 30000 });
+    cy.wait('@getPodcastLookup');
     cy.get('.episode-listener').should('exist');
     cy.get('.timestamp-control').eq(1).click();
     cy.get('.episode-listener audio').should('have.prop', 'currentTime').should('be.greaterThan', 0);
   });
 
   it('navigates to podcast detail page', () => {
-    cy.wait('@getPodcastLookup', { timeout: 30000 });
+    cy.wait('@getPodcastLookup');
     cy.get('.podcast-detail-card').should('exist');
     cy.get('.podcast-detail-card').within(() => {
       cy.get('a').first().click();

@@ -15,7 +15,7 @@
     "test:update": "jest --updateSnapshot",
     "cy": "cypress open",
     "cy:run": "cypress run",
-    "cypress": "start-server-and-test start http://localhost:3000 cy:open",
+    "cypress": "start-server-and-test start http://localhost:3000 cy",
     "cypress:run": "start-server-and-test start http://localhost:3000 cy:run"
   },
   "author": "Jesús Busto Romero",
