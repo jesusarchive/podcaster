@@ -8,7 +8,7 @@ describe('podcast list page', () => {
     });
 
     cy.fixture(`podcast-lookup-response-${podcastId}`).then((podcastLookup) => {
-      localStorage.setItem(`podcast-lookup-${podcastId}`, JSON.stringify(podcastLookup));
+      localStorage.setItem(`podcast-lookup-response-${podcastId}`, JSON.stringify(podcastLookup));
     });
     cy.intercept(
       'https://api.allorigins.win/raw?url=https%3A%2F%2Fitunes.apple.com%2Fus%2Frss%2Ftoppodcasts%2Flimit%3D100%2Fjson'
@@ -25,9 +25,9 @@ describe('podcast list page', () => {
 
   it('filters podcasts', () => {
     // cy.wait('@getPodcasts');
-    cy.get('input[type="search"]').type('CounterClock');
+    cy.get('input[type="search"]').type('Huberman');
     cy.get('.podcast-list li').should('have.length', 1);
-    cy.get('.podcast-list li').should('contain', 'CounterClock');
+    cy.get('.podcast-list li').should('contain', 'Huberman');
   });
 
   it('stores data in local storage', () => {
@@ -37,6 +37,9 @@ describe('podcast list page', () => {
 
   it('navigates to podcast detail page', () => {
     // cy.wait('@getPodcasts');
+    cy.get('input[type="search"]').type('Huberman');
+    cy.get('.podcast-list li').should('have.length', 1);
+    cy.get('.podcast-list li').should('contain', 'Huberman');
     cy.get('.podcast-list li').first().click();
     cy.url().should('include', '/podcast/');
   });
@@ -52,7 +55,7 @@ describe('podcast detail page', () => {
     });
 
     cy.fixture(`podcast-lookup-response-${podcastId}`).then((podcastLookup) => {
-      localStorage.setItem(`podcast-lookup-${podcastId}`, JSON.stringify(podcastLookup));
+      localStorage.setItem(`podcast-lookup-response-${podcastId}`, JSON.stringify(podcastLookup));
     });
     cy.intercept(
       `https://api.allorigins.win/raw?url=https%3A%2F%2Fitunes.apple.com%2Flookup%3Fid%3D${podcastId}%26media%3Dpodcast%26entity%3DpodcastEpisode%26limit%3D50`
@@ -62,7 +65,7 @@ describe('podcast detail page', () => {
   });
 
   it('displays podcasts detail and episodes table', () => {
-    cy.wait('@getPodcastLookup');
+    // cy.wait('@getPodcastLookup');
     cy.get('.podcast-detail-card').should('exist');
     cy.get('.podcast-detail-card').within(() => {
       cy.get('img').should('exist');
@@ -82,7 +85,7 @@ describe('podcast detail page', () => {
   });
 
   it('navigates to episode detail page', () => {
-    cy.wait('@getPodcastLookup');
+    // cy.wait('@getPodcastLookup');
     cy.get('.episodes-table tbody tr a').first().click();
     cy.url().should('include', '/episode/');
   });
@@ -98,7 +101,7 @@ describe('episode detail page', () => {
     });
 
     cy.fixture(`podcast-lookup-response-${podcastId}`).then((podcastLookup) => {
-      localStorage.setItem(`podcast-lookup-${podcastId}`, JSON.stringify(podcastLookup));
+      localStorage.setItem(`podcast-lookup-response-${podcastId}`, JSON.stringify(podcastLookup));
     });
     const episodeId = '1000613037781';
     cy.intercept(
@@ -109,7 +112,7 @@ describe('episode detail page', () => {
   });
 
   it('displays episode detail and audio player', () => {
-    cy.wait('@getPodcastLookup');
+    // cy.wait('@getPodcastLookup');
     cy.get('.podcast-detail-card').should('exist');
     cy.get('.episode-listener').should('exist');
     cy.get('.episode-listener').within(() => {
@@ -120,7 +123,7 @@ describe('episode detail page', () => {
   });
 
   it('displays audio timestamp controls', () => {
-    cy.wait('@getPodcastLookup');
+    // cy.wait('@getPodcastLookup');
     cy.get('.episode-listener').should('exist');
     cy.get('.episode-listener pre').within(() => {
       cy.get('.timestamp-control').first('exist');
@@ -128,14 +131,14 @@ describe('episode detail page', () => {
   });
 
   it('timestamp control changes audio time', () => {
-    cy.wait('@getPodcastLookup');
+    // cy.wait('@getPodcastLookup');
     cy.get('.episode-listener').should('exist');
     cy.get('.timestamp-control').eq(1).click();
     cy.get('.episode-listener audio').should('have.prop', 'currentTime').should('be.greaterThan', 0);
   });
 
   it('navigates to podcast detail page', () => {
-    cy.wait('@getPodcastLookup');
+    // cy.wait('@getPodcastLookup');
     cy.get('.podcast-detail-card').should('exist');
     cy.get('.podcast-detail-card').within(() => {
       cy.get('a').first().click();
