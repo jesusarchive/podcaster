@@ -1,6 +1,6 @@
 # Podcaster
 
-Minimal podcast listening app using React TypeScript and Webpack
+Minimal podcast listening app using React, TypeScript and Webpack
 
 ## Project Structure
 
