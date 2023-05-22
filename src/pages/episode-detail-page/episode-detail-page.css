@@ -31,8 +31,9 @@
 
 /* Links and timestamp buttons */
 .episode-listener a,
-button {
+.timestamp-control {
   color: var(--blue-500);
+  border: 0;
 }
 
 /* Responsive */
