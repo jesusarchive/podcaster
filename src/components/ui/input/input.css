@@ -1,0 +1,9 @@
+.input {
+  height: 2rem;
+  padding: 1rem;
+}
+
+.input-bordered {
+  border: 1px solid gray;
+  border-radius: 0.25rem;
+}

@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Input /> should render the input component 1`] = `
+<div>
+  <input
+    class="input input-bordered"
+  />
+</div>
+`;
+
+exports[`<Input /> should render the input component with a custom class name 1`] = `
+<div>
+  <input
+    class="input custom-class input-bordered"
+  />
+</div>
+`;
+
+exports[`<Input /> should render the input component with props 1`] = `
+<div>
+  <input
+    class="input input-bordered"
+    placeholder="input"
+    type="text"
+    value="input"
+  />
+</div>
+`;
+
+exports[`<Input /> should render the input component without bordered prop 1`] = `
+<div>
+  <input
+    class="input"
+  />
+</div>
+`;

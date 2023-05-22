@@ -1,0 +1,7 @@
+.error-boundary {
+  padding: 1rem;
+}
+
+.error-boundary button {
+  color: var(--blue-500);
+}

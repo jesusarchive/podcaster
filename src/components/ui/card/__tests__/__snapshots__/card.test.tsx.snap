@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Card /> should render the card component 1`] = `
+<div>
+  <div
+    class="card"
+  >
+    Card
+  </div>
+</div>
+`;
+
+exports[`<Card /> should render the card component with a custom class name 1`] = `
+<div>
+  <div
+    class="card custom-class"
+  >
+    Card
+  </div>
+</div>
+`;

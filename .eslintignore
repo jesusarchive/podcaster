@@ -5,3 +5,5 @@ dist/
 webpack.common.js
 webpack.dev.js
 webpack.prod.js
+jest.config.js
+jest.setup.js

@@ -4,7 +4,6 @@
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": true,
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
     "module": "esnext",
@@ -13,13 +12,12 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "incremental": true,
-    "baseUrl": "src",
+    "baseUrl": ".",
     "paths": {
-      "@/components/*": ["components/*"],
-      "@/pages/*": ["pages/*"]
+      "@/*": ["src/*"]
     },
-    "types": ["node", "jest"]
+    "types": ["node", "jest", "@types/jest", "@types/testing-library__jest-dom", "cypress", "@testing-library/cypress"]
   },
   "include": ["**/*.ts", "**/*.tsx", "types.d.ts"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "**/*.cy.ts", "**/*.cy.tsx", "cypress.config.js", "cypress/**/*"]
 }

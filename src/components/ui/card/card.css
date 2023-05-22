@@ -1,0 +1,13 @@
+.card {
+  background-color: var(--white);
+  box-shadow: 0 2px 2px 2px var(--gray-200);
+  border-radius: 2px;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.card div:not(:last-child) {
+  border-bottom: 1px solid var(--gray-200);
+  padding-bottom: 1rem;
+}
