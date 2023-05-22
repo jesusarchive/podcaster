@@ -29,3 +29,11 @@ export function hmsToSeconds(time: string): number {
 
   return hours * 3600 + minutes * 60 + seconds;
 }
+
+// check if date is older than given days
+export function isDateOlderThanDays(date: Date, days: number): boolean {
+  const now = new Date();
+  const diffDays = Math.floor((Number(now) - Number(date)) / (1000 * 60 * 60 * 24));
+
+  return diffDays >= days;
+}

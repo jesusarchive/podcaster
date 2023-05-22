@@ -22,3 +22,8 @@ export async function makeRequest(input: RequestInfo | URL, init?: RequestInit) 
 
   return data;
 }
+
+// wrap url in allorigins
+export function allOrigins(url: string): string {
+  return `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`;
+}
